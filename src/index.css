@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: yellow;
+  --color-primary-content: white;
+  --color-secondary-content: black;
+}
+
+.active {
+  border-bottom: 2px solid blue;
+}
