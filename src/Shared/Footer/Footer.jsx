@@ -1,21 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router";
+import NavLinks from "../../Components/NavLinks/NavLinks";
 
 const Footer = () => {
-  const links = (
-    <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/about">About</NavLink>
-      </li>
-    </>
-  );
   return (
     <div>
       <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
-        <nav className="grid grid-flow-col gap-4 list-none">{links}</nav>
+        <nav className="grid grid-flow-col gap-4 list-none">
+          <NavLinks />
+        </nav>
         <nav>
           <div className="grid grid-flow-col gap-4">
             <a>

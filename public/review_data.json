@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "r1",
+    "reviewerName": "Riad arefin",
+    "reviewerImage": "https://i.ibb.co/SwRCDDBV/biddut.jpg",
+    "description": "Very clean and well-maintained property. The landlord was cooperative.",
+    "propertyTitle": "Family Apartment in Dhanmondi"
+  },
+  {
+    "_id": "r1",
+    "reviewerName": "Rubel Ahmed",
+    "reviewerImage": "https://i.ibb.co/tTFvXgK7/rubel.jpg",
+    "description": "Very clean and well-maintained property. The landlord was cooperative.",
+    "propertyTitle": "Family Apartment in Dhanmondi"
+  },
+  {
+    "_id": "r2",
+    "reviewerName": "Badal Hossain",
+    "reviewerImage": "https://i.ibb.co/r23qqdpJ/badol.jpg",
+    "description": "Loved the peaceful environment and amenities. Highly recommended!",
+    "propertyTitle": "Luxury Flat in Uttara"
+  },
+
+  {
+    "_id": "r2",
+    "reviewerName": "Ferdous al mahmud",
+    "reviewerImage": "https://i.ibb.co/Psf5HpNj/shimul.jpg",
+    "description": "Loved the peaceful environment and amenities. Highly recommended!",
+    "propertyTitle": "Luxury Flat in Uttara"
+  }
+]

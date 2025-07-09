@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import Review from "./Sections/Review/Review";
+import Advertisement from "./Sections/Advertisement/Advertisement";
+import Featured from "./Sections/Features/Featured";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <div>
+      <Featured />
+      <Advertisement />
+      <Review />
+    </div>
+  );
+};
 
-export default Home
+export default Home;

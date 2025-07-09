@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "ad1",
+    "title": "Basement + Five (5) Stories Commercial Building",
+    "image": "https://scontent.fdac14-1.fna.fbcdn.net/v/t39.30808-6/480369291_926287836155229_2674816619948767090_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8hhyeMy4TxAQ7kNvwFwTZS4&_nc_oc=AdkIse5W8O_ET_qJ5_-4nl3JLGyJCyk69mBWIoqEKBWEONw1LuOaz3Ld8QId4gcsnuE&_nc_zt=23&_nc_ht=scontent.fdac14-1.fna&_nc_gid=yTXtQP1lHBJ9IHeF8_YGiQ&oh=00_AfR3ilFH4zhGgxmAFPrvaL9uYNlUxXsCAYlzphu4GhdsBg&oe=687407A9",
+    "location": "Rowmari, Kurigram.",
+    "priceRange": "$1500 - $2000",
+    "isVerified": true
+  },
+  {
+    "_id": "ad2",
+    "title": "Two (2) Storied Residential Building (Duplex)",
+
+    "image": "https://scontent.fdac14-1.fna.fbcdn.net/v/t39.30808-6/499535971_991370736313605_8166572630533860707_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=04hWpax8ciQQ7kNvwE1vGK-&_nc_oc=Adn7oZyQ0W_QXIrWN-htf2QjmU-g5PCG5YCHzwkvF5jV894sLHuT_o15ijQ_iWnqDeg&_nc_zt=23&_nc_ht=scontent.fdac14-1.fna&_nc_gid=ezPZBkMjVxvP5EhhJooL-g&oh=00_AfTiDal__nPW_krI4FqDKQ7VY-plLPk-ByB7tP3f4sfnrg&oe=6873E9BC",
+    "location": "College Para, Rowmari, Kurigram",
+    "priceRange": "$1200 - $1800",
+    "isVerified": false
+  },
+  {
+    "_id": "ad3",
+    "title": "Three (3) Storied Residential Building",
+
+    "image": "https://scontent.fdac14-1.fna.fbcdn.net/v/t39.30808-6/482002830_938787914905221_8174060381556125635_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=1220rrZTKZsQ7kNvwGXoAnI&_nc_oc=Adk8cn1iYNrXD3FBZ2zEX4qJHRg7pPx5QyOQW0MtjIFHSWFqWbg3TyVWJdOFdyA-Pwc&_nc_zt=23&_nc_ht=scontent.fdac14-1.fna&_nc_gid=iqBlHqmbyQB0Rl_8OnyaZw&oh=00_AfQpo0i6VlRp0Scgotv9lg6rhX1W2dzJjn-_7d0uMhX_0w&oe=6873D817",
+    "location": "Mondolpara, Chilmari, Kurigram. ",
+    "priceRange": "$1500 - $2000",
+    "isVerified": true
+  },
+  {
+    "_id": "ad4",
+    "title": "Four (4) Storied Residential Building",
+
+    "image": "https://scontent.fdac14-1.fna.fbcdn.net/v/t39.30808-6/480800408_935134581937221_1381550888926231843_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=3QVDEvDfKysQ7kNvwGdAFPm&_nc_oc=AdlUlLiR4eRGNyUJPCJv3x2s3a3TWZcyk9618KFD7bsKDK0XkUAYM_kFdZplY9hh39E&_nc_zt=23&_nc_ht=scontent.fdac14-1.fna&_nc_gid=7kuWK-bNB61wsgFmWNlIOA&oh=00_AfSN1Ms5K8XtQ69cXny7eV0fKZmJXcNDVQ3U3bf0ZMnStg&oe=687401B5",
+    "location": "Uttara, Dhaka",
+    "priceRange": "$1200 - $1800",
+    "isVerified": false
+  }
+]
