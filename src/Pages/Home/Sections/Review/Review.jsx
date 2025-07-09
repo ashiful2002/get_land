@@ -10,7 +10,7 @@ const Review = () => {
       .then((res) => setReviews(res));
   }, []);
   return (
-    <Section title="Latest User Reviews">
+    <Section title="Latest Client Reviews">
       <div className="carousel w-full rounded-box">
         {reviews.map((review, index) => (
           <div

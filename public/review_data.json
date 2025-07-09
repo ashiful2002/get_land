@@ -7,14 +7,14 @@
     "propertyTitle": "Family Apartment in Dhanmondi"
   },
   {
-    "_id": "r1",
+    "_id": "r2",
     "reviewerName": "Rubel Ahmed",
     "reviewerImage": "https://i.ibb.co/tTFvXgK7/rubel.jpg",
     "description": "Very clean and well-maintained property. The landlord was cooperative.",
     "propertyTitle": "Family Apartment in Dhanmondi"
   },
   {
-    "_id": "r2",
+    "_id": "r3",
     "reviewerName": "Badal Hossain",
     "reviewerImage": "https://i.ibb.co/r23qqdpJ/badol.jpg",
     "description": "Loved the peaceful environment and amenities. Highly recommended!",
@@ -22,7 +22,7 @@
   },
 
   {
-    "_id": "r2",
+    "_id": "r4",
     "reviewerName": "Ferdous al mahmud",
     "reviewerImage": "https://i.ibb.co/Psf5HpNj/shimul.jpg",
     "description": "Loved the peaceful environment and amenities. Highly recommended!",

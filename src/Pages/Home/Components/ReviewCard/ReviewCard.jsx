@@ -2,7 +2,7 @@ const ReviewCard = ({ review }) => {
   const { reviewerName, reviewerImage, description, propertyTitle } = review;
 
   return (
-    <div className="card bg-base-100 shadow-md">
+    <div className="card bg-base-100 dark:bg-base-300 shadow-md">
       <div className="card-body text-center">
         <div className="flex items-center gap-3 mb-4">
           <img
@@ -12,7 +12,9 @@ const ReviewCard = ({ review }) => {
           />
         </div>
         <h3 className="font-semibold ">-{reviewerName}</h3>
-        <p className="text-sm text-gray-600">{description}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300">
+          {description}
+        </p>
         <p className="text-xs text-primary mt-2">🏡 {propertyTitle}</p>
       </div>
     </div>

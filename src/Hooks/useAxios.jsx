@@ -1,12 +1,24 @@
 import axios from "axios";
 import React from "react";
-
-const axiosInstance = axios.create({
-  baseURL: `https://real-estate-server-j1vphwnm6-ashiful2002s-projects.vercel.app`,
-});
+import useAuth from "./useAuth";
 
 const useAxios = () => {
-  return axiosInstance;
+  const { user } = useAuth();
+  const token = user?.accessToken;
+
+  const axiosInstance = axios.create({
+    baseURL: `http://localhost:3000`,
+  });
+
+  // add intercepter here to attach token
+  axiosInstance.interceptors.request.use((config) => {
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`; 
+    }
+    return config;
+  });
+
+  return { axiosInstance };
 };
 
 export default useAxios;

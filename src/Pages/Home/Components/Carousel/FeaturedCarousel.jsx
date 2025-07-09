@@ -10,10 +10,9 @@ const FeaturedCarousel = () => {
   }, []);
 
   return (
-    <Carousel autoPlay={true} showArrows={true} >
+    <Carousel autoPlay={true} showArrows={true}>
       {carouselData.map((item) => (
         <div key={item.id}>
-          {console.log(item)}
           <img src={item.image} />
           <p>{item.title}</p>
         </div>

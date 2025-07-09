@@ -9,9 +9,11 @@ import useAxios from "../../../Hooks/useAxios";
 import axios from "axios";
 
 const SignUp = () => {
-  const { signUp, updateUserProfile } = useAuth();
+  const { signUp, updateUserProfile, user } = useAuth();
+  console.log(user?.accessToken);
+  const token = user?.accessToken;
   const { redirect } = useRedirect();
-  const axiosInstance = useAxios();
+  const { axiosInstance } = useAxios();
   const {
     register,
     handleSubmit,
@@ -76,9 +78,8 @@ const SignUp = () => {
     };
 
     // TODO: Send userData to backend
+
     const userRes = await axiosInstance.post("/users", userData);
-    console.log(userRes);
-    // await axios.post("http://localhost:3000/users", userData);
 
     // update user profile in firebase
     const updateProfile = {

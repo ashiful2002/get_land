@@ -5,7 +5,7 @@ import AdvertisementCard from "../../Components/AdvertisementCard.jsx/Advertisem
 const Advertisement = () => {
   const [properties, serProperties] = useState([]);
   useEffect(() => {
-    fetch("/advertisement_data.json")
+    fetch("http://localhost:3000/properties")
       .then((res) => res.json())
       .then((data) => serProperties(data));
   }, []);
