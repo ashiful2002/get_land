@@ -36,9 +36,9 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
-  const updateUserProfile = (profileInfo) => {
+  const updateUserProfile = (updatedProfile) => {
     setLoading(true);
-    return updateProfile(auth.currentUser, profileInfo);
+    return updateProfile(auth.currentUser, updatedProfile);
   };
   // current user
   useEffect(() => {

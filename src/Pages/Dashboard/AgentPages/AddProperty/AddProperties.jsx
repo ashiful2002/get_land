@@ -1,6 +1,6 @@
 import React from "react";
-import PropertyForm from "./Components/PropertyForm/PropertyForm";
-import Section from "../../Components/Section/Section";
+import PropertyForm from "../../../../Components/Shared/Forms/PropertyForm/PropertyForm";
+import Section from "../../../../Components/Section/Section";
 
 const AddProperties = () => {
   return (

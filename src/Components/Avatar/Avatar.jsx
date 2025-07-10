@@ -7,7 +7,27 @@ const Avatar = () => {
     <>
       {user && (
         <div>
-          <div className="avatar me-3">
+          {/* new avatar */}
+
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img
+                alt={user?.displayName}
+                src={
+                  user
+                    ? user.photoURL
+                    : "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+                }
+              />
+            </div>
+          </div>
+          {/* new ends */}
+
+          {/* <div className="avatar me-3">
             <div className="w-12 rounded-full">
               <img
                 src={
@@ -17,7 +37,7 @@ const Avatar = () => {
                 }
               />
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </>

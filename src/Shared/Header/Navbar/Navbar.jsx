@@ -5,10 +5,11 @@ import SignOutButton from "../../../Pages/Auth/SignOutButton/SignOutButton";
 import Avatar from "../../../Components/Avatar/Avatar";
 import NavLinks from "../../../Components/NavLinks/NavLinks";
 import Logo from "../../../Components/Logo/Logo";
+import Wishlist from "../WishList/Wishlist";
 
 const Navbar = () => {
   const { user } = useAuth();
-  
+
   return (
     <div className="navbar bg-base-100 shadow-sm sticky top-0 z-20">
       <div className="navbar-start">
@@ -21,7 +22,6 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-             
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -37,7 +37,7 @@ const Navbar = () => {
             <NavLinks />
           </ul>
         </div>
-       < Logo/>
+        <Logo />
       </div>
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1">
@@ -45,6 +45,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
+        <Wishlist />
         <Avatar />
         {user ? (
           <span>

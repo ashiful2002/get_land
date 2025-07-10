@@ -1,20 +1,21 @@
 import React from "react";
-import useUserRole from "../../Hooks/useUserRole/useUserRole";
-import Loading from "../../Components/Loading/Loading";
-import { Navigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import useUserRole from "../../Hooks/useUserRole/useUserRole";
+import { Navigate, useLocation } from "react-router";
+import Loading from "../../Components/Loading/Loading";
 
-const AdminRoute = ({ children }) => {
+const UserRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { role, roleLoading } = useUserRole();
 
+  const location = useLocation();
   if (loading || roleLoading) {
     return <Loading />;
   }
-  if (!user || role !== "admin") {
-    return <Navigate to="/forbidden" replace />;
-  }
+
+ 
+
   return children;
 };
 
-export default AdminRoute;
+export default UserRoute;

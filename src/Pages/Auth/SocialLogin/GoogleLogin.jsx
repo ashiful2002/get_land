@@ -38,7 +38,7 @@ const GoogleSignin = () => {
   return (
     <button
       onClick={handleGoogleLogin}
-      className="btn bg-white text-black border-[#e5e5e5] hover:shadow-md"
+      className="btn bg-white text-black border-[#e5e5e5] w-full hover:shadow-md"
     >
       <svg
         aria-label="Google logo"

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import Divider from "../../../Components/Divider/Divider";
 import GoogleSignin from "../SocialLogin/GoogleLogin";
 import useAuth from "../../../Hooks/useAuth";
 import useRedirect from "../../../Hooks/useRedirect/useRedirect";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
   const { signin } = useAuth();
@@ -21,7 +22,11 @@ const LoginForm = () => {
         redirect();
       })
       .catch((err) => {
-        console.log(err);
+        Swal.fire(
+          "Email and Password does not found",
+          `${err.message}`,
+          `error`
+        );
       });
     // Handle login logic (e.g., Firebase, API call)
   };
@@ -71,7 +76,6 @@ const LoginForm = () => {
               {errors.password.message}
             </p>
           )}
-
           <button type="submit" className="btn btn-primary w-full mt-6">
             Login
           </button>

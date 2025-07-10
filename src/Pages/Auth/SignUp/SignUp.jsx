@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
 import GoogleSignin from "../SocialLogin/GoogleLogin";
 import Divider from "../../../Components/Divider/Divider";
 import useAuth from "../../../Hooks/useAuth";
 import useRedirect from "../../../Hooks/useRedirect/useRedirect";
 import useAxios from "../../../Hooks/useAxios";
-import axios from "axios";
 
 const SignUp = () => {
-  const { signUp, updateUserProfile, user } = useAuth();
-  console.log(user?.accessToken);
-  const token = user?.accessToken;
+  const { signUp, updateUserProfile } = useAuth();
   const { redirect } = useRedirect();
   const { axiosInstance } = useAxios();
+
   const {
     register,
     handleSubmit,
@@ -24,13 +23,13 @@ const SignUp = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [uploading, setUploading] = useState(false);
 
+  // Handle Image Upload to imgbb
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const formData = new FormData();
     formData.append("image", file);
-
     setUploading(true);
 
     try {
@@ -43,75 +42,72 @@ const SignUp = () => {
         }
       );
       const imgData = await res.json();
+console.log(imgData);
+
       if (imgData.success) {
         setPhotoURL(imgData.data.display_url);
+        Swal.fire("Image uploaded successfully", "", "success");
       } else {
-        console.error("Image upload failed:", imgData);
+        throw new Error("Image upload failed");
       }
     } catch (error) {
       console.error("Upload error:", error);
+      Swal.fire("Image upload failed", "", "error");
     } finally {
       setUploading(false);
     }
   };
 
+  // Submit Registration Form
   const onSubmit = async (data) => {
-    signUp(data.email, data.password)
-      .then((res) => {
-        // redirect();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     if (!photoURL) {
-      alert("Photo is still uploading or missing.");
+      Swal.fire("Please upload your profile picture first", "", "warning");
       return;
     }
 
-    const userData = {
-      name: data.name,
-      email: data.email,
-      photoURL: photoURL,
-      role: "user",
-      created_at: new Date().toISOString(),
-      last_log_in: new Date().toISOString(),
-    };
+    try {
+      // Firebase Signup
+      const result = await signUp(data.email, data.password);
+      const user = result.user;
 
-    // TODO: Send userData to backend
-
-    const userRes = await axiosInstance.post("/users", userData);
-
-    // update user profile in firebase
-    const updateProfile = {
-      displayName: data.name,
-      photoURL: photoURL,
-    };
-
-    updateUserProfile(updateProfile)
-      .then(() => {
-        console.log("image and name updated");
-      })
-
-      .catch((err) => {
-        console.error(err);
+      // Update Firebase Profile
+      await updateUserProfile({
+        displayName: data.name,
+        photoURL: photoURL,
       });
 
-    reset();
-    setPhotoURL("");
+      // Save User to Backend
+      const userData = {
+        name: data.name,
+        email: data.email,
+        photoURL,
+        role: "user",
+        created_at: new Date().toISOString(),
+        last_log_in: new Date().toISOString(),
+      };
+
+      await axiosInstance.post("/users", userData);
+
+      Swal.fire("Account created successfully", "", "success");
+      reset();
+      setPhotoURL("");
+      redirect();
+    } catch (err) {
+      console.error("Signup Error:", err);
+      Swal.fire("Sign up failed", err.message, "error");
+    }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="fieldset bg-base-200 border border-base-300 rounded-box w-full max-w-sm mx-auto p-6 shadow-lg">
+    <div className="flex items-center justify-center min-h-screen px-4">
+      <div className="bg-base-200 border border-base-300 rounded-box w-full max-w-sm p-6 shadow-lg">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="text-4xl font-semibold text-primary text-center mb-6">
-            Register
+          <h1 className="text-3xl font-bold text-center text-primary mb-6">
+            Create Your Account
           </h1>
 
           {/* Name */}
-          <label className="label" htmlFor="name">
-            Name
-          </label>
+          <label className="label" htmlFor="name">Name</label>
           <input
             id="name"
             type="text"
@@ -119,13 +115,10 @@ const SignUp = () => {
             placeholder="Your name"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-          )}
-          {/* Photo */}
-          <label className="label mt-4" htmlFor="photo">
-            Photo
-          </label>
+          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+
+          {/* Photo Upload */}
+          <label className="label mt-4" htmlFor="photo">Profile Photo</label>
           <input
             id="photo"
             type="file"
@@ -133,39 +126,34 @@ const SignUp = () => {
             className="file-input file-input-bordered w-full"
             onChange={handleImageUpload}
           />
-          {!photoURL && !uploading && (
-            <p className="text-red-500 text-sm mt-1">Photo is required</p>
-          )}
-          {uploading && (
-            <p className="text-sm text-yellow-500 mt-1">Uploading image...</p>
-          )}
+          {uploading && <p className="text-yellow-500 text-sm mt-1">Uploading image...</p>}
+          {!photoURL && !uploading && <p className="text-red-500 text-sm">Photo is required</p>}
           {photoURL && (
-            <p className="text-sm text-green-500 mt-1">Photo uploaded!</p>
+            <img
+              src={photoURL}
+              alt="Uploaded preview"
+              className="w-16 h-16 rounded-full mt-2 object-cover border"
+            />
           )}
+
           {/* Email */}
-          <label className="label mt-4" htmlFor="email">
-            Email
-          </label>
+          <label className="label mt-4" htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
             className="input input-bordered w-full"
-            placeholder="Your email"
+            placeholder="you@example.com"
             {...register("email", { required: "Email is required" })}
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
 
           {/* Password */}
-          <label className="label mt-4" htmlFor="password">
-            Password
-          </label>
+          <label className="label mt-4" htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             className="input input-bordered w-full"
-            placeholder="Create password"
+            placeholder="Enter password"
             {...register("password", {
               required: "Password is required",
               minLength: {
@@ -174,18 +162,15 @@ const SignUp = () => {
               },
             })}
           />
-          {errors.password && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.password.message}
-            </p>
-          )}
+          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
 
+          {/* Submit Button */}
           <button
             type="submit"
             className="btn btn-primary w-full mt-6"
             disabled={isSubmitting || uploading}
           >
-            {isSubmitting ? "Working..." : "Sign up"}
+            {isSubmitting || uploading ? "Creating Account..." : "Sign Up"}
           </button>
         </form>
 
@@ -195,8 +180,8 @@ const SignUp = () => {
 
         <p className="text-center mt-4">
           Already have an account?{" "}
-          <Link className="link link-primary" to="/sign-in">
-            Sign in
+          <Link to="/sign-in" className="link link-primary">
+            Sign In
           </Link>
         </p>
       </div>

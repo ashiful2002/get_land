@@ -3,8 +3,10 @@ import { useParams } from "react-router";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import useAuth from "../../Hooks/useAuth";
 
 const PropertyDetails = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const { axiosInstance } = useAxios();
   const [property, setProperty] = useState(null);
@@ -24,16 +26,17 @@ const PropertyDetails = () => {
   }, [id, axiosInstance]);
 
   // Fetch reviews for this property
-  useEffect(() => {
-    axiosInstance
-      .get(`/reviews?propertyId=${id}`)
-      .then((res) => setReviews(res.data));
-  }, [id, axiosInstance]);
+  //   useEffect(() => {
+  //     axiosInstance
+  //       .get(`/reviews?propertyId=${id}`)
+  //       .then((res) => setReviews(res.data));
+  //   }, [id, axiosInstance]);
 
   const handleAddToWishlist = async () => {
     try {
       const res = await axiosInstance.post("/wishlist", {
         propertyId: id,
+        userEmail: user?.email,
         title: property.title,
         image: property.image,
         priceRange: property.priceRange,
@@ -43,7 +46,18 @@ const PropertyDetails = () => {
         Swal.fire("Added!", "Property added to wishlist.", "success");
       }
     } catch (error) {
-      console.error("Wishlist Error:", error);
+      if (
+        error.response ||
+        error.response.data?.message === "Property already exists in wishlist"
+      ) {
+        Swal.fire(
+          "Notice",
+          "This property is already in your wishlist.",
+          "info"
+        );
+      } else {
+        console.error("Wishlist Error:", error);
+      }
     }
   };
 
@@ -74,23 +88,32 @@ const PropertyDetails = () => {
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
-      <img src={property.image} alt={property.title} className="w-full h-96 object-cover rounded" />
+      <img
+        src={property.image}
+        alt={property.title}
+        className="w-full h-96 object-cover rounded"
+      />
       <h1 className="text-3xl font-bold">{property.title}</h1>
       <p className="text-gray-700">{property.description}</p>
       <p className="text-lg font-semibold">📍 {property.location}</p>
       <p className="text-lg">💰 {property.priceRange}</p>
       <p className="text-lg">Agent: {property.agent_name}</p>
-      <p className="text-sm text-gray-500">Completed: {property.completed_year}</p>
+      <p className="text-sm text-gray-500">
+        Completed: {property.completed_year}
+      </p>
 
-      <button onClick={handleAddToWishlist} className="btn btn-primary">
-        Add to Wishlist ❤️
+      <button onClick={handleAddToWishlist} className="btn btn-primary btn-sm">
+        Add to Wishlist
       </button>
 
       {/* Review Section */}
       <div className="mt-10">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold">Reviews</h2>
-          <button onClick={() => setShowModal(true)} className="btn btn-outline btn-sm">
+          <button
+            onClick={() => setShowModal(true)}
+            className="btn btn-outline btn-sm"
+          >
             Add a Review
           </button>
         </div>
@@ -127,26 +150,36 @@ const PropertyDetails = () => {
                 {...register("reviewerName", { required: "Name is required" })}
               />
               {errors.reviewerName && (
-                <p className="text-sm text-red-500">{errors.reviewerName.message}</p>
+                <p className="text-sm text-red-500">
+                  {errors.reviewerName.message}
+                </p>
               )}
 
               <input
                 type="text"
                 placeholder="Your Image URL"
                 className="input input-bordered w-full"
-                {...register("reviewerImage", { required: "Image URL is required" })}
+                {...register("reviewerImage", {
+                  required: "Image URL is required",
+                })}
               />
               {errors.reviewerImage && (
-                <p className="text-sm text-red-500">{errors.reviewerImage.message}</p>
+                <p className="text-sm text-red-500">
+                  {errors.reviewerImage.message}
+                </p>
               )}
 
               <textarea
                 placeholder="Your Review"
                 className="textarea textarea-bordered w-full"
-                {...register("description", { required: "Description is required" })}
+                {...register("description", {
+                  required: "Description is required",
+                })}
               />
               {errors.description && (
-                <p className="text-sm text-red-500">{errors.description.message}</p>
+                <p className="text-sm text-red-500">
+                  {errors.description.message}
+                </p>
               )}
 
               <button type="submit" className="btn btn-primary w-full">
