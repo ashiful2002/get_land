@@ -7,11 +7,14 @@ import Divider from "../../../Components/Divider/Divider";
 import useAuth from "../../../Hooks/useAuth";
 import useRedirect from "../../../Hooks/useRedirect/useRedirect";
 import useAxios from "../../../Hooks/useAxios";
+import { imageUpload } from "../../../api/util";
 
 const SignUp = () => {
   const { signUp, updateUserProfile } = useAuth();
   const { redirect } = useRedirect();
   const { axiosInstance } = useAxios();
+  const [photoURL, setPhotoURL] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const {
     register,
@@ -20,32 +23,17 @@ const SignUp = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const [photoURL, setPhotoURL] = useState("");
-  const [uploading, setUploading] = useState(false);
-
   // Handle Image Upload to imgbb
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
 
-    const formData = new FormData();
-    formData.append("image", file);
+    if (!file) return;
     setUploading(true);
 
     try {
-      const imgbbAPIKey = import.meta.env.VITE_IMGBB_API_KEY;
-      const res = await fetch(
-        `https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const imgData = await res.json();
-console.log(imgData);
-
-      if (imgData.success) {
-        setPhotoURL(imgData.data.display_url);
+      const imageURL = await imageUpload(file);
+      if (imageURL) {
+        setPhotoURL(imageURL);
         Swal.fire("Image uploaded successfully", "", "success");
       } else {
         throw new Error("Image upload failed");
@@ -107,7 +95,9 @@ console.log(imgData);
           </h1>
 
           {/* Name */}
-          <label className="label" htmlFor="name">Name</label>
+          <label className="label" htmlFor="name">
+            Name
+          </label>
           <input
             id="name"
             type="text"
@@ -115,10 +105,14 @@ console.log(imgData);
             placeholder="Your name"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+          {errors.name && (
+            <p className="text-red-500 text-sm">{errors.name.message}</p>
+          )}
 
           {/* Photo Upload */}
-          <label className="label mt-4" htmlFor="photo">Profile Photo</label>
+          <label className="label mt-4" htmlFor="photo">
+            Profile Photo
+          </label>
           <input
             id="photo"
             type="file"
@@ -126,8 +120,12 @@ console.log(imgData);
             className="file-input file-input-bordered w-full"
             onChange={handleImageUpload}
           />
-          {uploading && <p className="text-yellow-500 text-sm mt-1">Uploading image...</p>}
-          {!photoURL && !uploading && <p className="text-red-500 text-sm">Photo is required</p>}
+          {uploading && (
+            <p className="text-yellow-500 text-sm mt-1">Uploading image...</p>
+          )}
+          {!photoURL && !uploading && (
+            <p className="text-red-500 text-sm">Photo is required</p>
+          )}
           {photoURL && (
             <img
               src={photoURL}
@@ -137,7 +135,9 @@ console.log(imgData);
           )}
 
           {/* Email */}
-          <label className="label mt-4" htmlFor="email">Email</label>
+          <label className="label mt-4" htmlFor="email">
+            Email
+          </label>
           <input
             id="email"
             type="email"
@@ -145,10 +145,14 @@ console.log(imgData);
             placeholder="you@example.com"
             {...register("email", { required: "Email is required" })}
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
 
           {/* Password */}
-          <label className="label mt-4" htmlFor="password">Password</label>
+          <label className="label mt-4" htmlFor="password">
+            Password
+          </label>
           <input
             id="password"
             type="password"
@@ -162,7 +166,9 @@ console.log(imgData);
               },
             })}
           />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password.message}</p>
+          )}
 
           {/* Submit Button */}
           <button

@@ -1,22 +1,19 @@
-import React from "react";
+import React, { use } from "react";
+import { useLoaderData } from "react-router";
+import Section from "../../Components/Section/Section";
+import AdvertisementCard from "../Home/Components/AdvertisementCard.jsx/AdvertisementCard";
 
 const AllProperties = () => {
+  const properties = useLoaderData();
+
   return (
-    <div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit
-        magnam ex at tempore, maiores dolorum repudiandae illum accusamus
-        laborum assumenda id fugit vitae ipsam natus? Nihil quam at atque esse!
-      </p>
-      <h3 className="">Lorem, ipsum dolor.</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa voluptatem
-        beatae, similique eveniet accusantium officiis illum suscipit nostrum
-        aspernatur nulla quia excepturi consequuntur placeat voluptate soluta
-        architecto ad eos unde, deleniti repellat dolores est, libero eius?
-        Numquam provident quos quaerat.
-      </p>
-    </div>
+    <Section title="All Properties">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {properties.map((property) => (
+          <AdvertisementCard property={property} />
+        ))}
+      </div>
+    </Section>
   );
 };
 

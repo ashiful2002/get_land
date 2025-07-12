@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import useAxios from "../../../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import useAuth from "../../../../Hooks/useAuth";
-import axios from "axios";
+import useAxios from "../../../../Hooks/useAxios";
+import { imageUpload } from "../../../../api/util"; // Make sure this works
 
 const PropertyForm = () => {
-  const { axiosInstance } = useAxios();
-  const [imagePreview, setPreview] = useState(null);
-
   const { user } = useAuth();
-  console.log(user);
+  const { axiosInstance } = useAxios();
 
   const {
     register,
@@ -19,72 +16,60 @@ const PropertyForm = () => {
     watch,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  const [imagePreview, setImagePreview] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
   const watchImage = watch("image");
+
+  // Preview image on file change
   useEffect(() => {
     if (watchImage && watchImage[0]) {
       const file = watchImage[0];
       const previewURL = URL.createObjectURL(file);
-      setPreview(previewURL);
+      setImagePreview(previewURL);
 
       return () => URL.revokeObjectURL(previewURL);
     }
   }, [watchImage]);
 
-  const [uploading, setUploading] = useState(false);
-
-  const onSubmit = async (data) => {
+  const onSubmit = async (formData) => {
     try {
-      if (!data.image[0]) {
-        Swal.fire("Missing Image", "Please upload an image.", "warning");
-        return;
+      // Check for image
+      if (!formData.image || !formData.image[0]) {
+        return Swal.fire("Missing Image", "Please upload an image.", "warning");
       }
 
       setUploading(true);
 
       // Upload image to imgbb
-      const imageFile = data.image[0];
-      const imageFormData = new FormData();
-      imageFormData.append("image", imageFile);
-
-      const imgbbAPIKey = import.meta.env.VITE_IMGBB_API_KEY;
-      // const uploadRes = await fetch(
-      //   `https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`,
-      //   {
-      //     method: "POST",
-      //     body: imageFormData,
-      //   }
-      // );
-
-      const { imageData } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`,
-        imageFormData
-      );
-      const imgData = await imageData.json();
-
-      if (!imgData.success) {
-        throw new Error("Image upload failed.");
+      const uploadedImageURL = await imageUpload(formData.image[0]);
+      if (!uploadedImageURL) {
+        throw new Error("Image upload failed");
       }
 
-      const imageURL = imgData.data.display_url;
-      const priceRange = `$${data.minPrice} - $${data.maxPrice}`;
+      const priceRange = `$${formData.minPrice} - $${formData.maxPrice}`;
 
       const property = {
-        title: data.title,
-        location: data.location,
-        image: imageURL,
         agent_name: user.displayName,
         agent_email: user.email,
-        minPrice: data.minPrice,
-        maxPrice: data.maxPrice,
+        title: formData.title,
+        location: formData.location,
+        image: uploadedImageURL,
+        userImage: user.photoURL || "",
         priceRange,
+        minPrice: formData.minPrice,
+        maxPrice: formData.maxPrice,
+        description: formData.description,
         created_at: new Date().toISOString(),
       };
 
-      const res = await axiosInstance.post("/properties", property);
+      const response = await axiosInstance.post("/properties", property);
 
-      if (res.data.insertedId) {
-        Swal.fire("Success!", "Property has been added.", "success");
+      if (response.data.insertedId) {
+        Swal.fire("Success!", "Property added successfully!", "success");
         reset();
+        setImagePreview(null);
       }
     } catch (error) {
       console.error("Error adding property:", error);
@@ -99,20 +84,23 @@ const PropertyForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full max-w-screen-lg mx-auto p-6 space-y-6 bg-base-200 rounded-lg shadow-lg"
     >
-      <h2 className="text-3xl font-bold text-center mb-4 text-primary">
-        Add New Property
+      <h2 className="text-3xl font-bold text-center text-primary mb-4">
+        Add Property
       </h2>
+
+      {/* Preview Image */}
       {imagePreview && (
-        <figure>
+        <div className="flex justify-center">
           <img
             src={imagePreview}
-            alt="preview"
-            className="mt-3 w-[500px] mx-auto object-cover rounded-md shadow"
+            alt="Preview"
+            className="w-[500px] h-auto object-cover rounded shadow"
           />
-        </figure>
+        </div>
       )}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Agent Name */}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Agent Info */}
         <div>
           <label className="label">Agent Name</label>
           <input
@@ -122,8 +110,6 @@ const PropertyForm = () => {
             className="input input-bordered w-full bg-base-100 cursor-not-allowed"
           />
         </div>
-
-        {/* Agent Email */}
         <div>
           <label className="label">Agent Email</label>
           <input
@@ -133,93 +119,90 @@ const PropertyForm = () => {
             className="input input-bordered w-full bg-base-100 cursor-not-allowed"
           />
         </div>
-        {/* Property Title */}
+
+        {/* Title */}
         <div>
-          <label className="label" htmlFor="title">
-            Property Title
-          </label>
+          <label className="label">Property Title</label>
           <input
-            id="title"
             type="text"
-            className="input input-bordered w-full"
-            placeholder="Luxury Apartment"
+            placeholder="Modern Apartment"
             {...register("title", { required: "Title is required" })}
+            className="input input-bordered w-full"
           />
           {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
+            <p className="text-red-500">{errors.title.message}</p>
           )}
         </div>
 
-        {/* Property Location */}
+        {/* Location */}
         <div>
-          <label className="label" htmlFor="location">
-            Location
-          </label>
+          <label className="label">Location</label>
           <input
-            id="location"
             type="text"
-            className="input input-bordered w-full"
-            placeholder="Dhaka, Bangladesh"
+            placeholder="City, Country"
             {...register("location", { required: "Location is required" })}
+            className="input input-bordered w-full"
           />
           {errors.location && (
-            <p className="text-red-500 text-sm">{errors.location.message}</p>
+            <p className="text-red-500">{errors.location.message}</p>
           )}
         </div>
 
-        {/* Image Upload */}
+        {/* Image */}
         <div>
-          <label className="label" htmlFor="image">
-            Image
-          </label>
+          <label className="label">Upload Image</label>
           <input
-            id="image"
             type="file"
-            className="file-input file-input-bordered w-full"
             accept="image/*"
             {...register("image", { required: "Image is required" })}
+            className="file-input file-input-bordered w-full"
           />
           {errors.image && (
-            <p className="text-red-500 text-sm">{errors.image.message}</p>
-          )}
-
-          {uploading && (
-            <p className="text-yellow-500 mt-1">Uploading image...</p>
+            <p className="text-red-500">{errors.image.message}</p>
           )}
         </div>
 
         {/* Price Range */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="label" htmlFor="minPrice">
-              Min Price
-            </label>
+            <label className="label">Min Price</label>
             <input
-              id="minPrice"
               type="number"
-              placeholder="1500"
-              className="input input-bordered w-full"
               {...register("minPrice", { required: "Min price is required" })}
+              className="input input-bordered w-full"
+              placeholder="1000"
             />
             {errors.minPrice && (
-              <p className="text-red-500 text-sm">{errors.minPrice.message}</p>
+              <p className="text-red-500">{errors.minPrice.message}</p>
             )}
           </div>
           <div>
-            <label className="label" htmlFor="maxPrice">
-              Max Price
-            </label>
+            <label className="label">Max Price</label>
             <input
-              id="maxPrice"
               type="number"
-              placeholder="2000"
-              className="input input-bordered w-full"
               {...register("maxPrice", { required: "Max price is required" })}
+              className="input input-bordered w-full"
+              placeholder="3000"
             />
             {errors.maxPrice && (
-              <p className="text-red-500 text-sm">{errors.maxPrice.message}</p>
+              <p className="text-red-500">{errors.maxPrice.message}</p>
             )}
           </div>
+        </div>
+        {/* Description */}
+        <div className="">
+          <label className="label">Description</label>
+          <textarea
+            rows="4"
+            placeholder="Write about the property's features, amenities, etc."
+            {...register("description", {
+              required: "Description is required",
+            })}
+            className="textarea textarea-bordered w-full"
+          ></textarea>
+          {errors.description && (
+            <p className="text-red-500">{errors.description.message}</p>
+          )}
         </div>
       </div>
 
@@ -228,7 +211,7 @@ const PropertyForm = () => {
         className="btn btn-primary w-full"
         disabled={isSubmitting || uploading}
       >
-        {isSubmitting ? "Submitting..." : "Add Property"}
+        {isSubmitting || uploading ? "Submitting..." : "Add Property"}
       </button>
     </form>
   );

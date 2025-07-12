@@ -1,16 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { Link } from "react-router";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
+import Loading from "../../../Components/Loading/Loading";
 
 const Wishlist = () => {
-  const [wishData, setWishData] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:3000/wishlist")
-      .then((res) => res.json())
-      .then((data) => setWishData(data))
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure(); // <-- Call the hook to get axios instance
+
+  const {
+    data: wishData = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["wishlist", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get("wishlist");
+      return res.data;
+    },
+  });
+  if (isLoading) return <Loading />;
+  if (isError) return <p>Error loading wishlist.</p>;
+
   return (
     <div>
       <div className="flex-none">
@@ -31,30 +44,28 @@ const Wishlist = () => {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="badge badge-sm  rounded-full  indicator-item">
+              <span className="badge badge-sm rounded-full indicator-item">
                 {wishData.length}
               </span>
             </div>
           </div>
           <div
             tabIndex={0}
-            className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
+            className="card card-compact dropdown-content bg-base-100 z-10 mt-3 w-52 shadow"
           >
             <div className="card-body">
               <span className="text-lg font-bold">{wishData.length} Items</span>
-              {/* <span className="text-info">Subtotal: $999</span> */}
               <div className="card-actions">
                 <Link
                   to="/dashboard/wishlist"
                   className="btn btn-primary btn-block"
                 >
-                  View WishList
+                  View Wishlist
                 </Link>
               </div>
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end"></div>
       </div>
     </div>
   );

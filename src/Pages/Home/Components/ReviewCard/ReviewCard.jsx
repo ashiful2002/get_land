@@ -1,5 +1,8 @@
+import { useQueries } from "@tanstack/react-query";
+
 const ReviewCard = ({ review }) => {
-  const { reviewerName, reviewerImage, description, propertyTitle } = review;
+  const { _id, reviewerName, reviewerImage, description, propertyTitle, date } =
+    review;
 
   return (
     <div className="card bg-base-100 dark:bg-base-300 shadow-md">
@@ -16,6 +19,14 @@ const ReviewCard = ({ review }) => {
           {description}
         </p>
         <p className="text-xs text-primary mt-2">🏡 {propertyTitle}</p>
+        <p className="text-xs text-primary mt-2">
+          Review at:{" "}
+          {new Date(date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
       </div>
     </div>
   );

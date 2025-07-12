@@ -25,6 +25,7 @@ import DashboardStats from "../Pages/Dashboard/DashboardStats/DashboardStats";
 import MyProfile from "../Pages/Dashboard/UserPages/MyProfile/MyProfile";
 import PropertyBought from "../Pages/Dashboard/UserPages/PropertyBought/PropertyBought";
 import MyReviews from "../Pages/Dashboard/UserPages/MyReviews/MyReviews";
+import MakeOffer from "../Pages/Dashboard/UserPages/GetWishList/MakeOffer/MakeOffer";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+        loader: () => fetch("http://localhost:3000/properties"),
       },
       {
         path: "all-properties",
@@ -42,6 +44,7 @@ const router = createBrowserRouter([
             <AllProperties />
           </PrivateRoute>
         ),
+        loader: () => fetch("http://localhost:3000/properties"),
       },
 
       {
@@ -101,6 +104,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <GetWishList />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/make-offer/:id",
+        element: (
+          <PrivateRoute>
+            <MakeOffer />
           </PrivateRoute>
         ),
       },

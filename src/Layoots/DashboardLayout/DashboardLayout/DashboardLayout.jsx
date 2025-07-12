@@ -1,16 +1,8 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
 import {
-  FaMoneyCheckAlt,
-  FaSearchLocation,
-  FaMotorcycle,
-  FaClock,
   FaUserShield,
-  FaTruckLoading,
-  FaCheck,
-  FaWallet,
   FaHome,
-  FaUserEdit,
   FaHeart,
   FaCheckCircle,
   FaStar,
@@ -65,52 +57,52 @@ const DashboardLayout = () => {
 
       {/* agent nav */}
       {/* {!roleLoading && role === "agent" && ( */}
-        <>
-          <li>
-            <NavLink
-              to="/dashboard/agent-profile"
-              className="flex items-center gap-2"
-            >
-              <FaUserCircle /> Agent Profile
-            </NavLink>
-          </li>
+      <>
+        <li>
+          <NavLink
+            to="/dashboard/agent-profile"
+            className="flex items-center gap-2"
+          >
+            <FaUserCircle /> Agent Profile
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/add-property"
-              className="flex items-center gap-2"
-            >
-              <FaPlusCircle /> Add Property
-            </NavLink>
-          </li>
+        <li>
+          <NavLink
+            to="/dashboard/add-property"
+            className="flex items-center gap-2"
+          >
+            <FaPlusCircle /> Add Property
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/my-properties"
-              className="flex items-center gap-2"
-            >
-              <FaBuilding /> My Added Properties
-            </NavLink>
-          </li>
+        <li>
+          <NavLink
+            to="/dashboard/my-properties"
+            className="flex items-center gap-2"
+          >
+            <FaBuilding /> My Added Properties
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/sold-properties"
-              className="flex items-center gap-2"
-            >
-              <FaCheckCircle /> My Sold Properties
-            </NavLink>
-          </li>
+        <li>
+          <NavLink
+            to="/dashboard/sold-properties"
+            className="flex items-center gap-2"
+          >
+            <FaCheckCircle /> My Sold Properties
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/requested-properties"
-              className="flex items-center gap-2"
-            >
-              <FaClipboardList /> Requested Properties -- agent end
-            </NavLink>
-          </li>
-        </>
+        <li>
+          <NavLink
+            to="/dashboard/requested-properties"
+            className="flex items-center gap-2"
+          >
+            <FaClipboardList /> Requested Properties -- agent end
+          </NavLink>
+        </li>
+      </>
       {/* )} */}
 
       {/* admin navbar */}

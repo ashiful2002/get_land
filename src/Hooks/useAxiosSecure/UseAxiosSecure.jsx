@@ -8,22 +8,24 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   const navigate = useNavigate();
   const { user, logOut } = useAuth();
+
+  // req interceptor
   axiosSecure.interceptors.request.use(
     (config) => {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
+      config.headers.Authorization = `Bearer ${user?.accessToken}`;
       return config;
     },
     (error) => {
       return Promise.reject(error);
     }
   );
-
+  // response intercepter
   axiosSecure.interceptors.response.use(
     (res) => {
       return res;
     },
     (error) => {
-      const ststus = error.status;
+      const ststus = error.response?.status;
       console.log("inside res interceptor", ststus);
       if (ststus === 403) {
         navigate("/forbidden");
