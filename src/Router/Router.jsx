@@ -26,6 +26,9 @@ import MyProfile from "../Pages/Dashboard/UserPages/MyProfile/MyProfile";
 import PropertyBought from "../Pages/Dashboard/UserPages/PropertyBought/PropertyBought";
 import MyReviews from "../Pages/Dashboard/UserPages/MyReviews/MyReviews";
 import MakeOffer from "../Pages/Dashboard/UserPages/GetWishList/MakeOffer/MakeOffer";
+import MyAddedProperties from "../Pages/Dashboard/AgentPages/MyAddedProperties/MyAddedProperties";
+import ManageReviews from "../Pages/Dashboard/AdminPages/ManageReviews/ManageReviews";
+import ManageProperties from "../Pages/Dashboard/AdminPages/ManageProperties/ManageProperties";
 
 const router = createBrowserRouter([
   {
@@ -54,10 +57,7 @@ const router = createBrowserRouter([
             <PropertyDetails />
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          axios.get(`http://localhost:3000/properties/${params.id}`),
       },
-      //properties/686e493a5f6a385c107e545a
       {
         path: "/sign-in",
         element: <Signin />,
@@ -138,6 +138,33 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddProperties />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-added-properties",
+        element: (
+          <PrivateRoute>
+            <MyAddedProperties />
+          </PrivateRoute>
+        ),
+      },
+
+      /// admin path
+
+      {
+        path: "manage-reviews",
+        element: (
+          <PrivateRoute>
+            <ManageReviews />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-properties",
+        element: (
+          <PrivateRoute>
+            <ManageProperties />
           </PrivateRoute>
         ),
       },

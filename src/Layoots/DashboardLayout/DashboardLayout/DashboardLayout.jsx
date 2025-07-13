@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa"; // icons
 import useUserRole from "../../../Hooks/useUserRole/useUserRole";
 import Logo from "../../../Components/Logo/Logo";
+import SignOutButton from "../../../Pages/Auth/SignOutButton/SignOutButton";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
@@ -78,7 +79,7 @@ const DashboardLayout = () => {
 
         <li>
           <NavLink
-            to="/dashboard/my-properties"
+            to="/dashboard/my-added-properties"
             className="flex items-center gap-2"
           >
             <FaBuilding /> My Added Properties
@@ -106,45 +107,45 @@ const DashboardLayout = () => {
       {/* )} */}
 
       {/* admin navbar */}
-      {!roleLoading && role === "admin" && (
-        <>
-          <li>
-            <NavLink
-              to="/dashboard/admin-profile"
-              className="flex items-center gap-2"
-            >
-              <FaUserShield /> Admin Profile
-            </NavLink>
-          </li>
+      {/* {!roleLoading && role === "admin" && ( */}
+      <>
+        <li>
+          <NavLink
+            to="/dashboard/admin-profile"
+            className="flex items-center gap-2"
+          >
+            <FaUserShield /> Admin Profile
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/manage-properties"
-              className="flex items-center gap-2"
-            >
-              <FaTasks /> Manage Properties
-            </NavLink>
-          </li>
+        <li>
+          <NavLink
+            to="/dashboard/manage-properties"
+            className="flex items-center gap-2"
+          >
+            <FaTasks /> Manage Properties
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/manage-users"
-              className="flex items-center gap-2"
-            >
-              <FaUsersCog /> Manage Users
-            </NavLink>
-          </li>
+        <li>
+          <NavLink
+            to="/dashboard/manage-users"
+            className="flex items-center gap-2"
+          >
+            <FaUsersCog /> Manage Users
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/manage-reviews"
-              className="flex items-center gap-2"
-            >
-              <FaComments /> Manage Reviews --admin ends
-            </NavLink>
-          </li>
-        </>
-      )}
+        <li>
+          <NavLink
+            to="/dashboard/manage-reviews"
+            className="flex items-center gap-2"
+          >
+            <FaComments /> Manage Reviews --admin ends
+          </NavLink>
+        </li>
+      </>
+      {/* )} */}
     </>
   );
   return (
@@ -183,8 +184,10 @@ const DashboardLayout = () => {
                 <div className="mx-2 flex-1 px-2 lg:hidden">Dashboard</div>
                 <div className="hidden flex-none  lg:hidden">
                   <ul className="menu menu-horizontal">{links}</ul>
+                 
                 </div>
               </div>
+              
             </div>
           </div>
           <Outlet />
@@ -198,6 +201,9 @@ const DashboardLayout = () => {
           <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
             {links}
           </ul>
+          <div className="mx-auto hidden md:block">
+            <SignOutButton />
+          </div>
         </div>
       </div>
     </div>

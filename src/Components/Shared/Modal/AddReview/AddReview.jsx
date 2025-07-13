@@ -37,7 +37,8 @@ const AddReview = ({ propertyTitle }) => {
       ...data,
       propertyId: id,
       propertyTitle,
-      reviewerImage: user.photoURL,
+      reviewer_email: user?.email,
+      reviewerImage: user?.photoURL,
 
       date: new Date().toISOString(),
     };

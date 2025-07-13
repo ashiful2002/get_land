@@ -1,20 +1,30 @@
 import React from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { LogOut } from "lucide-react";
-import { FiLogOut } from "react-icons/fi";
 import Avatar from "../../../Components/Avatar/Avatar";
 import Swal from "sweetalert2";
 
 const SignOutButton = () => {
   const { SignOutUser } = useAuth();
   const handleSignOut = () => {
-    SignOutUser()
-      .then(() => {
-        Swal.fire("are you sure? ", "", "question");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Swal.fire({
+      title: "Are you sure you want to sign out?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, sign out",
+      cancelButtonText: "Cancel",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        SignOutUser()
+          .then(() => {
+            Swal.fire("Signed out!", "", "success");
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire("Error", "Failed to sign out", "error");
+          });
+      }
+    });
   };
   return (
     <button onClick={handleSignOut} className="btn btn-primary">
