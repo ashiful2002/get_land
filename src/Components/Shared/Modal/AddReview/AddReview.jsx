@@ -80,8 +80,7 @@ const AddReview = ({ propertyTitle }) => {
                   <img
                     className="w-12 rounded-full"
                     src={review.reviewerImage}
-                    alt=""
-                    srcset=""
+                    alt={review.reviewerName}
                   />
                   <h4 className="font-bold">{review.reviewerName}</h4>
                 </div>

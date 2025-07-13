@@ -1,7 +1,5 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter } from "react-router";
 
-import React from "react";
-import ReactDOM from "react-dom/client";
 import RootLayouts from "../Layoots/RootLayouts/RootLayouts";
 import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Auth/Signin/Signin";
@@ -9,26 +7,17 @@ import SignUp from "../Pages/Auth/SignUp/SignUp";
 import AllProperties from "../Pages/AllProperties/AllProperties";
 import PrivateRoute from "../ProtectedRoutes/PrivateRoute/PrivateRoute";
 import AddProperties from "../Pages/Dashboard/AgentPages/AddProperty/AddProperties";
-import axios from "axios";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import DashboardLayout from "../Layoots/DashboardLayout/DashboardLayout/DashboardLayout";
-import AdminRoute from "../ProtectedRoutes/AdminRoute/AdminRoute";
-import AdminDashboard from "../Layoots/DashboardLayout/AdminDashboard/AdminDashboard";
-import AgentRoute from "../ProtectedRoutes/AgentsRoute/AgentRoute";
-import AgentDashboard from "../Layoots/DashboardLayout/AgentDashBoard/AgentDashboard";
-import UserDashboard from "../Layoots/DashboardLayout/UserDashboard/UserDashboard";
-import DashboardHome from "../Layoots/DashboardLayout/DashboardHome/DashboardHome";
 import GetWishList from "../Pages/Dashboard/UserPages/GetWishList/GetWishList";
-import Wishlist from "../Shared/Header/WishList/Wishlist";
-import UserRoute from "../ProtectedRoutes/UserRoute/UserRoute";
 import DashboardStats from "../Pages/Dashboard/DashboardStats/DashboardStats";
-import MyProfile from "../Pages/Dashboard/UserPages/MyProfile/MyProfile";
 import PropertyBought from "../Pages/Dashboard/UserPages/PropertyBought/PropertyBought";
 import MyReviews from "../Pages/Dashboard/UserPages/MyReviews/MyReviews";
 import MakeOffer from "../Pages/Dashboard/UserPages/GetWishList/MakeOffer/MakeOffer";
 import MyAddedProperties from "../Pages/Dashboard/AgentPages/MyAddedProperties/MyAddedProperties";
 import ManageReviews from "../Pages/Dashboard/AdminPages/ManageReviews/ManageReviews";
 import ManageProperties from "../Pages/Dashboard/AdminPages/ManageProperties/ManageProperties";
+import Profile from "../Pages/Dashboard/Shared/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -95,7 +84,7 @@ const router = createBrowserRouter([
         path: "profile",
         element: (
           <PrivateRoute>
-            <MyProfile />
+            <Profile />
           </PrivateRoute>
         ),
       },

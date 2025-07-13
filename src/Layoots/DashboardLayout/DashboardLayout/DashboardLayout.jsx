@@ -20,132 +20,149 @@ import SignOutButton from "../../../Pages/Auth/SignOutButton/SignOutButton";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
+
   console.log(role);
 
   const links = (
     <>
       <Logo />
 
-      <li>
-        <NavLink to="/dashboard" className="flex items-center gap-2">
-          <FaHome /> Home
-        </NavLink>
-      </li>
+      {/* user nav */}
+      {!roleLoading && role === "user" && (
+        <>
+          <li>
+            <NavLink to="/dashboard" className="flex items-center gap-2">
+              <FaHome /> Home
+            </NavLink>
+          </li>
 
-      <li>
-        <NavLink to="/dashboard/profile" className="flex items-center gap-2">
-          <FaUserCircle /> My Profile
-        </NavLink>
-      </li>
+          <li>
+            <NavLink
+              to="/dashboard/profile"
+              className="flex items-center gap-2"
+            >
+              <FaUserCircle /> My Profile
+            </NavLink>
+          </li>
 
-      <li>
-        <NavLink to="/dashboard/wishlist" className="flex items-center gap-2">
-          <FaHeart /> Wishlist
-        </NavLink>
-      </li>
+          <li>
+            <NavLink
+              to="/dashboard/wishlist"
+              className="flex items-center gap-2"
+            >
+              <FaHeart /> Wishlist
+            </NavLink>
+          </li>
 
-      <li>
-        <NavLink to="/dashboard/purchased" className="flex items-center gap-2">
-          <FaCheckCircle /> Property Bought
-        </NavLink>
-      </li>
+          <li>
+            <NavLink
+              to="/dashboard/purchased"
+              className="flex items-center gap-2"
+            >
+              <FaCheckCircle /> Property Bought
+            </NavLink>
+          </li>
 
-      <li>
-        <NavLink to="/dashboard/reviews" className="flex items-center gap-2">
-          <FaStar /> My Reviews -- user end
-        </NavLink>
-      </li>
-
+          <li>
+            <NavLink
+              to="/dashboard/reviews"
+              className="flex items-center gap-2"
+            >
+              <FaStar /> My Reviews -- user end
+            </NavLink>
+          </li>
+        </>
+      )}
       {/* agent nav */}
-      {/* {!roleLoading && role === "agent" && ( */}
-      <>
-        <li>
-          <NavLink
-            to="/dashboard/agent-profile"
-            className="flex items-center gap-2"
-          >
-            <FaUserCircle /> Agent Profile
-          </NavLink>
-        </li>
+      {!roleLoading && role === "agent" && (
+        <>
+          <li>
+            <NavLink
+              to="/dashboard/profile"
+              className="flex items-center gap-2"
+            >
+              <FaUserCircle /> Agent Profile
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/add-property"
-            className="flex items-center gap-2"
-          >
-            <FaPlusCircle /> Add Property
-          </NavLink>
-        </li>
+          <li>
+            <NavLink
+              to="/dashboard/add-property"
+              className="flex items-center gap-2"
+            >
+              <FaPlusCircle /> Add Property
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/my-added-properties"
-            className="flex items-center gap-2"
-          >
-            <FaBuilding /> My Added Properties
-          </NavLink>
-        </li>
+          <li>
+            <NavLink
+              to="/dashboard/my-added-properties"
+              className="flex items-center gap-2"
+            >
+              <FaBuilding /> My Added Properties
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/sold-properties"
-            className="flex items-center gap-2"
-          >
-            <FaCheckCircle /> My Sold Properties
-          </NavLink>
-        </li>
+          <li>
+            <NavLink
+              to="/dashboard/sold-properties"
+              className="flex items-center gap-2"
+            >
+              <FaCheckCircle /> My Sold Properties
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/requested-properties"
-            className="flex items-center gap-2"
-          >
-            <FaClipboardList /> Requested Properties -- agent end
-          </NavLink>
-        </li>
-      </>
-      {/* )} */}
+          <li>
+            <NavLink
+              to="/dashboard/requested-properties"
+              className="flex items-center gap-2"
+            >
+              <FaClipboardList /> Requested Properties -- agent end
+            </NavLink>
+          </li>
+        </>
+      )}
 
       {/* admin navbar */}
-      {/* {!roleLoading && role === "admin" && ( */}
-      <>
-        <li>
-          <NavLink
-            to="/dashboard/admin-profile"
-            className="flex items-center gap-2"
-          >
-            <FaUserShield /> Admin Profile
-          </NavLink>
-        </li>
+      {!roleLoading && role === "admin" && (
+        <>
+          <li>
+            <NavLink
+              to="/dashboard/profile"
+              className="flex items-center gap-2"
+            >
+              <FaUserShield /> Admin Profile
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/manage-properties"
-            className="flex items-center gap-2"
-          >
-            <FaTasks /> Manage Properties
-          </NavLink>
-        </li>
+          <li>
+            <NavLink
+              to="/dashboard/manage-properties"
+              className="flex items-center gap-2"
+            >
+              <FaTasks /> Manage Properties
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/manage-users"
-            className="flex items-center gap-2"
-          >
-            <FaUsersCog /> Manage Users
-          </NavLink>
-        </li>
+          <li>
+            <NavLink
+              to="/dashboard/manage-users"
+              className="flex items-center gap-2"
+            >
+              <FaUsersCog /> Manage Users
+            </NavLink>
+          </li>
 
-        <li>
-          <NavLink
-            to="/dashboard/manage-reviews"
-            className="flex items-center gap-2"
-          >
-            <FaComments /> Manage Reviews --admin ends
-          </NavLink>
-        </li>
-      </>
-      {/* )} */}
+          <li>
+            <NavLink
+              to="/dashboard/manage-reviews"
+              className="flex items-center gap-2"
+            >
+              <FaComments /> Manage Reviews --admin ends
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -184,10 +201,8 @@ const DashboardLayout = () => {
                 <div className="mx-2 flex-1 px-2 lg:hidden">Dashboard</div>
                 <div className="hidden flex-none  lg:hidden">
                   <ul className="menu menu-horizontal">{links}</ul>
-                 
                 </div>
               </div>
-              
             </div>
           </div>
           <Outlet />

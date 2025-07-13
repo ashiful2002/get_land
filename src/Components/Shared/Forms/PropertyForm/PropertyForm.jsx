@@ -51,16 +51,17 @@ const PropertyForm = () => {
       const priceRange = `$${formData.minPrice} - $${formData.maxPrice}`;
 
       const property = {
-        agent_name: user.displayName,
-        agent_email: user.email,
+        agent_name: user?.displayName,
+        agent_email: user?.email,
+        userImage: user?.photoURL || "",
         title: formData.title,
         location: formData.location,
-        image: uploadedImageURL,
-        userImage: user.photoURL || "",
-        priceRange,
         minPrice: formData.minPrice,
         maxPrice: formData.maxPrice,
         description: formData.description,
+        image: uploadedImageURL,
+        priceRange: `${formData.minPrice} - ${formData.maxPrice}`,
+        status: "pending",
         created_at: new Date().toISOString(),
       };
 

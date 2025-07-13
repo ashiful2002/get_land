@@ -7,20 +7,13 @@ import useAuth from "../../Hooks/useAuth";
 import AddReview from "../../Components/Shared/Modal/AddReview/AddReview";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure/UseAxiosSecure";
+import Loading from "../../Components/Loading/Loading";
 
 const PropertyDetails = () => {
-  const axiosSecure = useAxiosSecure();
-
   const { user } = useAuth();
   const { id } = useParams();
   const [isWishlist, setIsWishlist] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const axiosSecure = useAxiosSecure();
 
   const {
     data: property,
@@ -30,22 +23,24 @@ const PropertyDetails = () => {
     queryKey: ["property", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/properties/${id}`);
+      console.log("response data ", res.data);
+
       return res.data;
     },
   });
 
-  const {
-    data: reviews = [],
-    refetch: refetchReviews,
-    isLoading: isReviewLoading,
-  } = useQuery({
-    queryKey: ["reviews", id],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/reviews?propertyId=${id}`);
-      return res.data;
-    },
-    enabled: !!id,
-  });
+  // const {
+  //   data: reviews = [],
+  //   refetch: refetchReviews,
+  //   isLoading: isReviewLoading,
+  // } = useQuery({
+  //   queryKey: ["reviews", id],
+  //   queryFn: async () => {
+  //     const res = await axiosSecure.get(`/reviews?propertyId=${id}`);
+  //     return res.data;
+  //   },
+  //   enabled: !!id,
+  // });
 
   const handleAddToWishlist = async () => {
     try {
@@ -77,7 +72,15 @@ const PropertyDetails = () => {
     }
   };
 
-  if (!property) return <div className="text-center mt-20">Loading...</div>;
+  if (isPropertyLoading) return <Loading />;
+  if (isPropertyError) {
+    return (
+      <div className="text-center text-red-500 mt-20">
+        Failed to load property.
+      </div>
+    );
+  }
+  console.log(property);
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -88,7 +91,9 @@ const PropertyDetails = () => {
       />
       <h1 className="text-3xl font-bold">{property.title}</h1>
       <p className="text-gray-700 dark:text-gray-200">{property.description}</p>
-      <p className="text-lg font-semibold">📍 {property.location}</p>
+      <p className="text-lg font-semibold">
+        📍 {property.location || "no data"}
+      </p>
       <p className="text-lg">💰 {property.priceRange}</p>
       <p className="text-lg">Agent: {property.agent_name}</p>
       <p className="text-sm text-gray-500 dark:text-gray-200">

@@ -6,11 +6,6 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 
 const Review = () => {
   const axiosSecure = useAxiosSecure();
-  useEffect(() => {
-    fetch("http://localhost:3000/latest-review")
-      .then((res) => res.json())
-      .then((res) => setReviews(res));
-  }, []);
 
   const { data: reviews = [] } = useQuery({
     queryKey: ["latestReview"],
@@ -19,7 +14,6 @@ const Review = () => {
       return res.data;
     },
   });
-  // eikhane kivabe property er title add korbo seta shunte hobe. i have the property id
 
   return (
     <Section title="Latest Client Reviews">
@@ -31,25 +25,11 @@ const Review = () => {
             // className="carousel-item w-full justify-center px-4"
           >
             <div className="max-w-md mx-auto">
-              {console.log(review)}
               <ReviewCard review={review} />
             </div>
           </div>
         ))}
       </div>
-
-      {/* Optional carousel controls */}
-      {/* <div className="flex justify-center gap-4 mt-6">
-        {reviews.map((_, index) => (
-          <a
-            key={index}
-            href={`#review${index}`}
-            className="btn btn-xs btn-outline"
-          >
-            {index + 1}
-          </a>
-        ))}
-      </div> */}
     </Section>
   );
 };
