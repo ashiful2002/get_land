@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ const PropertyDetails = () => {
   const { id } = useParams();
   const [isWishlist, setIsWishlist] = useState(false);
   const axiosSecure = useAxiosSecure();
-
+  const navigate = useNavigate();
   const {
     data: property,
     isLoading: isPropertyLoading,
@@ -23,26 +23,26 @@ const PropertyDetails = () => {
     queryKey: ["property", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/properties/${id}`);
-      console.log("response data ", res.data);
-
       return res.data;
     },
   });
 
-  // const {
-  //   data: reviews = [],
-  //   refetch: refetchReviews,
-  //   isLoading: isReviewLoading,
-  // } = useQuery({
-  //   queryKey: ["reviews", id],
-  //   queryFn: async () => {
-  //     const res = await axiosSecure.get(`/reviews?propertyId=${id}`);
-  //     return res.data;
-  //   },
-  //   enabled: !!id,
-  // });
-
   const handleAddToWishlist = async () => {
+    // Check if property data and user email are available
+    if (
+      !user?.email ||
+      !property?.title ||
+      !property?.image ||
+      !property?.priceRange ||
+      !property?.agent_name
+    ) {
+      Swal.fire(
+        "Missing data",
+        "Please wait for the property to fully load.",
+        "warning"
+      );
+      return;
+    }
     try {
       const res = await axiosSecure.post("/wishlist", {
         propertyId: id,
@@ -55,17 +55,24 @@ const PropertyDetails = () => {
       if (res.data.insertedId) {
         Swal.fire("Added!", "Property added to wishlist.", "success");
         setIsWishlist(true);
+        navigate("/dashboard/wishlist");
       }
     } catch (error) {
       if (
         error.response ||
         error.response.data?.message === "Property already exists in wishlist"
       ) {
-        Swal.fire(
-          "Notice",
-          "This property is already in your wishlist.",
-          "info"
-        );
+        Swal.fire({
+          title: "This property is already in your wishlist.",
+          text: "Want to view your wishlist?",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Yes, Show my wishlist!",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/dashboard/wishlist");
+          }
+        });
       } else {
         console.error("Wishlist Error:", error);
       }
@@ -80,7 +87,6 @@ const PropertyDetails = () => {
       </div>
     );
   }
-  console.log(property);
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">

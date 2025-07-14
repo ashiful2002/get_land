@@ -6,16 +6,16 @@ import GoogleSignin from "../SocialLogin/GoogleLogin";
 import Divider from "../../../Components/Divider/Divider";
 import useAuth from "../../../Hooks/useAuth";
 import useRedirect from "../../../Hooks/useRedirect/useRedirect";
-import useAxios from "../../../Hooks/useAxios";
 import { imageUpload } from "../../../api/util";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const { signUp, updateUserProfile } = useAuth();
   const { redirect } = useRedirect();
-  const { axiosInstance } = useAxios();
   const [photoURL, setPhotoURL] = useState("");
   const [uploading, setUploading] = useState(false);
-
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -34,7 +34,8 @@ const SignUp = () => {
       const imageURL = await imageUpload(file);
       if (imageURL) {
         setPhotoURL(imageURL);
-        Swal.fire("Image uploaded successfully", "", "success");
+        toast.success("Image uploaded successfully");
+        // Swal.fire("Image uploaded successfully", "", "success");
       } else {
         throw new Error("Image upload failed");
       }
@@ -74,7 +75,7 @@ const SignUp = () => {
         last_log_in: new Date().toISOString(),
       };
 
-      await axiosInstance.post("/users", userData);
+      await axiosSecure.post("/users", userData);
 
       Swal.fire("Account created successfully", "", "success");
       reset();
@@ -163,6 +164,11 @@ const SignUp = () => {
               minLength: {
                 value: 6,
                 message: "Password must be at least 6 characters",
+              },
+              pattern: {
+                // value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/,
+                message:
+                  "Password must contain at least one number and special character",
               },
             })}
           />

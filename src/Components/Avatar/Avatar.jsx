@@ -1,8 +1,13 @@
 import React from "react";
 import useAuth from "../../Hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const Avatar = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const handleAvatarClick = () => {
+    navigate("/dashboard/profile");
+  };
   return (
     <>
       {user && (
@@ -13,6 +18,7 @@ const Avatar = () => {
             tabIndex={0}
             role="button"
             className="btn btn-ghost btn-circle avatar"
+            onClick={handleAvatarClick}
           >
             <div className="w-10 rounded-full">
               <img

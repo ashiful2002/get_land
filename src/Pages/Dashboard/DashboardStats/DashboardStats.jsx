@@ -1,6 +1,12 @@
+import { useQuery } from "@tanstack/react-query";
 import { FaHome, FaUsers, FaStar, FaDollarSign } from "react-icons/fa";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
+import Loading from "../../../Components/Loading/Loading";
+import { Ear } from "lucide-react";
+import { useState } from "react";
 
 const DashboardStats = ({ stats }) => {
+
   const cards = [
     {
       title: "Total Properties",
@@ -28,6 +34,7 @@ const DashboardStats = ({ stats }) => {
     },
   ];
 
+ 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
       {cards.map((card, index) => (

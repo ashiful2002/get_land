@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import { FaUserEdit, FaKey } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../../Components/Loading/Loading";
 import Section from "../../../../Components/Section/Section";
@@ -12,9 +11,8 @@ const Profile = () => {
   const { user: authUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [updateModal, setUpdateModal] = useState(false);
-  const [] = useState(false);
   const {
-    data: userProfile = [],
+    data: userProfile,
     isError,
     isLoading,
   } = useQuery({
@@ -22,8 +20,9 @@ const Profile = () => {
     queryFn: async () => {
       const res = await axiosSecure.get(`users/${authUser?.email}`);
       return res.data;
-    },
+    }, 
   });
+  console.log(userProfile);
 
   if (isLoading) {
     return <Loading />;
@@ -44,8 +43,6 @@ const Profile = () => {
       title="My Profile"
       className="w-xs md:w-xl xl:w-2xl mx-auto bg-white dark:bg-gray-700  shadow-lg rounded-lg p-6 mt-6"
     >
-      {/* <h2 className="text-2xl font-semibold mb-4 text-center">My Profile</h2> */}
-
       <div className="flex flex-col items-center space-y-4">
         <img
           src={userProfile.photoURL}

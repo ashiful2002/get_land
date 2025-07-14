@@ -4,11 +4,11 @@ import Swal from "sweetalert2";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxios from "../../../../Hooks/useAxios";
 import { imageUpload } from "../../../../api/util"; // Make sure this works
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 
 const PropertyForm = () => {
   const { user } = useAuth();
-  const { axiosInstance } = useAxios();
-
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -65,7 +65,7 @@ const PropertyForm = () => {
         created_at: new Date().toISOString(),
       };
 
-      const response = await axiosInstance.post("/properties", property);
+      const response = await axiosSecure.post("/properties", property);
 
       if (response.data.insertedId) {
         Swal.fire("Success!", "Property added successfully!", "success");

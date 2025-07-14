@@ -16,15 +16,16 @@ const Wishlist = () => {
 
   // Fetch wishlist with react-query
   const {
-    data: wishlist = [],
+    data: wishlist,
     isLoading,
     isError,
     refetch,
   } = useQuery({
     queryKey: ["wishlist", user?.email],
-    enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get("/wishlist");
+      const res = await axiosSecure.get(`/wishlist?email=${user?.email}`);
+      console.log(res.data);
+
       return res.data;
     },
   });

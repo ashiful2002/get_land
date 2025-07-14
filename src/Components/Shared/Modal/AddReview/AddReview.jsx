@@ -82,7 +82,21 @@ const AddReview = ({ propertyTitle }) => {
                     src={review.reviewerImage}
                     alt={review.reviewerName}
                   />
-                  <h4 className="font-bold">{review.reviewerName}</h4>
+                  <div>
+                    <h4 className="font-bold capitalize">
+                      {review.reviewerName}
+                    </h4>
+                    <p className="text-sm">
+                      {new Date(review.date).toLocaleDateString("en-UK", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true,
+                      })}
+                    </p>
+                  </div>
                 </div>
                 <p>{review.description}</p>
               </div>

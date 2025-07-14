@@ -18,6 +18,8 @@ import MyAddedProperties from "../Pages/Dashboard/AgentPages/MyAddedProperties/M
 import ManageReviews from "../Pages/Dashboard/AdminPages/ManageReviews/ManageReviews";
 import ManageProperties from "../Pages/Dashboard/AdminPages/ManageProperties/ManageProperties";
 import Profile from "../Pages/Dashboard/Shared/Profile/Profile";
+import Statastics from "../Pages/Dashboard/DashboardStats/Statastics";
+import ManageUsers from "../Pages/Dashboard/AdminPages/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -69,14 +71,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <DashboardStats
-              stats={{
-                totalProperties: 87,
-                totalUsers: 259,
-                totalReviews: 104,
-                totalSales: 12250,
-              }}
-            />
+            <Statastics />
           </PrivateRoute>
         ),
       },
@@ -146,6 +141,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageReviews />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <PrivateRoute>
+            <ManageUsers />
           </PrivateRoute>
         ),
       },

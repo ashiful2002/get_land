@@ -3,11 +3,12 @@ import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import useAuth from "../../../Hooks/useAuth";
 import useRedirect from "../../../Hooks/useRedirect/useRedirect";
 import useAxios from "../../../Hooks/useAxios";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
 
 const GoogleSignin = () => {
   const { GoogleSignin, setUser } = useAuth();
   const { redirect } = useRedirect();
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const handleGoogleLogin = () => {
     GoogleSignin()
       .then(async (res) => {
@@ -24,7 +25,7 @@ const GoogleSignin = () => {
         };
 
         // TODO: Send userData to backend
-        const userRes = await axiosInstance.post("/users", userData);
+        const userRes = await axiosSecure.post("/users", userData);
         console.log(userRes);
         redirect();
         console.log(res.user);
@@ -33,7 +34,6 @@ const GoogleSignin = () => {
         console.log(err);
       });
 
-    console.log("Google Sign In Triggered");
   };
   return (
     <button

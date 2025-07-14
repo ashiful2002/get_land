@@ -6,10 +6,12 @@ import GoogleSignin from "../SocialLogin/GoogleLogin";
 import useAuth from "../../../Hooks/useAuth";
 import useRedirect from "../../../Hooks/useRedirect/useRedirect";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
 
 const LoginForm = () => {
   const { signin } = useAuth();
   const { redirect } = useRedirect();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -18,7 +20,19 @@ const LoginForm = () => {
 
   const onSubmit = (data) => {
     signin(data.email, data.password)
-      .then((res) => {
+      .then(async (res) => {
+        const user = res.user;
+
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          role: "user",
+        };
+
+        // TODO: Send userData to backend
+        const userRes = await axiosSecure.post("/users", userData);
+        console.log(userRes);
         redirect();
       })
       .catch((err) => {
@@ -28,7 +42,6 @@ const LoginForm = () => {
           `error`
         );
       });
-    // Handle login logic (e.g., Firebase, API call)
   };
 
   return (
