@@ -100,7 +100,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "purchased",
+        path: "property-bought",
         element: (
           <PrivateRoute>
             <PropertyBought />
@@ -127,6 +127,14 @@ const router = createBrowserRouter([
       },
       {
         path: "my-added-properties",
+        element: (
+          <PrivateRoute>
+            <MyAddedProperties />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "requested-properties",
         element: (
           <PrivateRoute>
             <MyAddedProperties />

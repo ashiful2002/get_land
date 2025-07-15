@@ -1,7 +1,16 @@
 import { Link } from "react-router";
 
 const AdvertisementCard = ({ property }) => {
-  const { _id, title, image, location, priceRange, status } = property;
+  const {
+    _id,
+    title,
+    image,
+    location,
+    priceRange,
+    status,
+    minPrice,
+    maxPrice,
+  } = property;
 
   if (status === "verified") {
     return (
@@ -16,7 +25,7 @@ const AdvertisementCard = ({ property }) => {
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
           <p className="text-sm">
-            <strong>Price:</strong> {priceRange}
+            <strong>Price:</strong> {minPrice} - {maxPrice}
           </p>
           <p className="text-sm">
             <strong>Location:</strong> {location}

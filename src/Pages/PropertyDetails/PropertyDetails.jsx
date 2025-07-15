@@ -33,7 +33,6 @@ const PropertyDetails = () => {
       !user?.email ||
       !property?.title ||
       !property?.image ||
-      !property?.priceRange ||
       !property?.agent_name
     ) {
       Swal.fire(
@@ -44,14 +43,15 @@ const PropertyDetails = () => {
       return;
     }
     try {
-      const res = await axiosSecure.post("/wishlist", {
+      const newProperty = {
+        ...property,
         propertyId: id,
         userEmail: user?.email,
-        title: property.title,
-        image: property.image,
-        priceRange: property.priceRange,
-        agent_name: property.agent_name,
-      });
+        userName: user?.displayName,
+      };
+      delete newProperty._id;
+      const res = await axiosSecure.post("/wishlist", newProperty);
+
       if (res.data.insertedId) {
         Swal.fire("Added!", "Property added to wishlist.", "success");
         setIsWishlist(true);

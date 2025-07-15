@@ -60,16 +60,20 @@ const Wishlist = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">My Wishlist</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+        My Wishlist
+      </h1>
 
       {wishlist.length === 0 ? (
-        <p className="text-gray-600 text-center">No properties in wishlist.</p>
+        <p className="text-gray-600 dark:text-gray-300 text-center">
+          No properties in wishlist.
+        </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {wishlist.map((item) => (
             <div
               key={item._id}
-              className="bg-white p-4 rounded-xl shadow border border-gray-200"
+              className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300"
             >
               <img
                 src={item.image}
@@ -77,19 +81,23 @@ const Wishlist = () => {
                 className="w-full h-52 object-cover rounded"
               />
               <div className="mt-4 space-y-2">
-                <h2 className="text-lg font-bold">{item.title}</h2>
-                <p className="text-sm text-gray-700">📍 {item.location}</p>
-                <p className="text-sm text-gray-700">
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+                  {item.title}
+                </h2>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  📍 {item.location}
+                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   🧑‍💼 Agent: {item.agent_name}
                 </p>
-                <p className="text-sm text-gray-700">
-                  🔖 Price: {item.priceRange}
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  🔖 Price Range : {item.minPrice} - {item.maxPrice}
                 </p>
-                <p className="text-sm text-gray-500">
-                  ✅ Verified: {item.isVerified ? "Yes" : "No"}
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  ✅ Verified: {item.status === "verified" ? "Yes" : "No"}
                 </p>
 
-                <div className="flex gap-2 mt-4">
+                <div className="flex flex-wrap gap-2 mt-4">
                   <button
                     onClick={() => handleMakeOffer(item._id)}
                     className="btn btn-sm btn-primary flex items-center gap-2"

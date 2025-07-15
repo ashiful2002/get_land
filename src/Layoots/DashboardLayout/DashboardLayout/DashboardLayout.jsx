@@ -56,7 +56,7 @@ const DashboardLayout = () => {
 
           <li>
             <NavLink
-              to="/dashboard/purchased"
+              to="/dashboard/property-bought"
               className="flex items-center gap-2"
             >
               <FaCheckCircle /> Property Bought
@@ -68,7 +68,7 @@ const DashboardLayout = () => {
               to="/dashboard/reviews"
               className="flex items-center gap-2"
             >
-              <FaStar /> My Reviews -- user end
+              <FaStar /> My Reviews
             </NavLink>
           </li>
         </>
@@ -105,19 +105,18 @@ const DashboardLayout = () => {
 
           <li>
             <NavLink
+              to="/dashboard/requested-properties"
+              className="flex items-center gap-2"
+            >
+              <FaClipboardList /> Requested Properties
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/dashboard/sold-properties"
               className="flex items-center gap-2"
             >
               <FaCheckCircle /> My Sold Properties
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/dashboard/requested-properties"
-              className="flex items-center gap-2"
-            >
-              <FaClipboardList /> Requested Properties -- agent end
             </NavLink>
           </li>
         </>

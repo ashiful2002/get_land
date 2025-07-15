@@ -40,7 +40,7 @@ const ManageUsers = () => {
       text: "Are you sure to make agent? Agent can add pepperty for sell",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, Mark as Fraud",
+      confirmButtonText: "Yes, Make Agent",
       cancelButtonText: "Cancel",
     });
 
