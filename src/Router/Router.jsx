@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             <AllProperties />
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:3000/properties"),
+        // loader: () => fetch("http://localhost:3000/"),
       },
 
       {

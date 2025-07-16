@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 const Avatar = () => {
   const { user } = useAuth();
+
   const navigate = useNavigate();
   const handleAvatarClick = () => {
     navigate("/dashboard/profile");

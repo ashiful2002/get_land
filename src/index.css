@@ -6,11 +6,13 @@
   name: "light";
   default: true;
   --color-primary: blue;
-  --color-secondary: yellow;
   --color-primary-content: white;
+  --color-secondary: yellow;
   --color-secondary-content: black;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 .active {
   border-bottom: 2px solid blue;
 }

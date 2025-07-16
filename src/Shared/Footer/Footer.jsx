@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import NavLinks from "../../Components/NavLinks/NavLinks";
+import Logo from "../../Components/Logo/Logo";
 
 const Footer = () => {
   return (
@@ -9,6 +10,7 @@ const Footer = () => {
         <nav className="grid grid-flow-col gap-4 list-none">
           <NavLinks />
         </nav>
+
         <nav>
           <div className="grid grid-flow-col gap-4">
             <a>
@@ -46,10 +48,15 @@ const Footer = () => {
             </a>
           </div>
         </nav>
+        <nav>
+          <Logo />
+        </nav>
         <aside>
           <p>
-            Copyright © {new Date().getFullYear()} - All right reserved by ACME
-            Industries Ltd
+            Copyright © {new Date().getFullYear()} - All right reserved by
+            <a href="#" className="link ml-2">
+              Get Land
+            </a>
           </p>
         </aside>
       </footer>

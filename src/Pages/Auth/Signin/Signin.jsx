@@ -32,7 +32,6 @@ const LoginForm = () => {
 
         // TODO: Send userData to backend
         const userRes = await axiosSecure.post("/users", userData);
-        console.log(userRes);
         redirect();
       })
       .catch((err) => {

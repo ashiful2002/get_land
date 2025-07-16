@@ -27,8 +27,21 @@ const PropertyDetails = () => {
     },
   });
 
+  const { data: userFromDb } = useQuery({
+    queryKey: ["userFromDb"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${user?.email}`);
+      return res.data;
+    },
+  });
+  console.log(userFromDb.role);
+
   const handleAddToWishlist = async () => {
     // Check if property data and user email are available
+    if (userFromDb.role === "agent") {
+      Swal.fire("Sorry", "Agent cannot buy property", "warning");
+      return;
+    }
     if (
       !user?.email ||
       !property?.title ||
@@ -98,13 +111,16 @@ const PropertyDetails = () => {
       <h1 className="text-3xl font-bold">{property.title}</h1>
       <p className="text-gray-700 dark:text-gray-200">{property.description}</p>
       <p className="text-lg font-semibold">
-        📍 {property.location || "no data"}
+        <strong>Location: </strong>📍{property.location || "no data"}
       </p>
-      <p className="text-lg">💰 {property.priceRange}</p>
-      <p className="text-lg">Agent: {property.agent_name}</p>
-      <p className="text-sm text-gray-500 dark:text-gray-200">
-        Completed: {property.completed_year}
+      <p className="text-lg">
+        <strong>Price Range: </strong> ${property.minPrice} - $
+        {property.maxPrice}
       </p>
+      <p className="text-lg">
+        <strong>Agent:</strong> {property.agent_name}
+      </p>
+
       <button
         disabled={isWishlist}
         onClick={handleAddToWishlist}
