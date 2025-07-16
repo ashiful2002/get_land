@@ -34,7 +34,7 @@ const PropertyDetails = () => {
       return res.data;
     },
   });
-  console.log(userFromDb.role);
+  console.log(userFromDb?.role);
 
   const handleAddToWishlist = async () => {
     // Check if property data and user email are available

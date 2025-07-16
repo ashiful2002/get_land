@@ -6,11 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../../Components/Loading/Loading";
 import Section from "../../../../Components/Section/Section";
 import UpdateProfile from "../../../../Components/Shared/Modal/UpdateProfile/UpdateProfile";
+import ChangePasswordModal from "../../../../Components/Shared/Modal/ChangePasswordModal/ChangePasswordModal";
 
 const Profile = () => {
   const { user: authUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [updateModal, setUpdateModal] = useState(false);
+  const [changeUserPass, setChangeUserPass] = useState(false);
   const {
     data: userProfile,
     isError,
@@ -20,7 +22,7 @@ const Profile = () => {
     queryFn: async () => {
       const res = await axiosSecure.get(`users/${authUser?.email}`);
       return res.data;
-    }, 
+    },
   });
   console.log(userProfile);
 
@@ -68,30 +70,41 @@ const Profile = () => {
               userProfile={userProfile}
             />
           )}
-          <button className="btn btn-success flex items-center gap-2 text-white">
+          <button
+            onClick={() => setChangeUserPass(true)}
+            className="btn btn-success flex items-center gap-2 text-white"
+          >
             <FaKey /> Change Password
           </button>
+          {changeUserPass && (
+            <ChangePasswordModal
+              isOpen={changeUserPass}
+              onClose={() => setChangeUserPass(false)}
+              currentUser={userProfile}
+            />
+          )}
         </div>
         <div className="w-full space-y-2">
           <div className="flex items-center">
-            <label className="font-semibold text-gray-700 dark:text-gray-200">
-              Name:
-            </label>
-            <p className="text-lg">{userProfile.name}</p>
+            <label className="font-semibold text-gray-700 dark:text-gray-200"></label>
+
+            <p className="text-lg">
+              <strong> Name: </strong>
+              {userProfile.name}
+            </p>
           </div>
 
           <div className="flex items-center ">
-            <label className="font-semibold text-gray-700 dark:text-gray-200">
-              Email:
-            </label>
-            <p className="text-lg">{userProfile.email}</p>
+            <p className="text-lg">
+              {" "}
+              <strong> Email: </strong>
+              {userProfile.email}
+            </p>
           </div>
 
           <div className="flex items-center">
-            <label className="font-semibold text-gray-700 dark:text-gray-200">
-              Account Created:
-            </label>
             <p className="text-lg">
+              <strong> Account created: </strong>
               {new Date(userProfile.created_at).toLocaleDateString("en-UK", {
                 day: "2-digit",
                 month: "long",
@@ -104,10 +117,9 @@ const Profile = () => {
           </div>
 
           <div className="flex items-center">
-            <label className="font-semibold text-gray-700 dark:text-gray-200">
-              Last Logged In :
-            </label>
             <p className="text-lg">
+              <strong>Last log in: </strong>
+
               {new Date(userProfile.last_log_in).toLocaleDateString("en-UK", {
                 day: "2-digit",
                 month: "long",
