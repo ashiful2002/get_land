@@ -212,12 +212,12 @@ const DashboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-            {links}
+          <ul className="menu bg-base-200 text-base-content min-h-full w-72 p-4">
+            {links}{" "}
+            <div className="mt-[60vh]">
+              <SignOutButton />
+            </div>
           </ul>
-          <div className="mx-auto hidden md:block">
-            <SignOutButton />
-          </div>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ const PropertyBought = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `http://localhost:3000/make-offer?email=${user?.email}`
+        `/make-offer?buyer_email=${user?.email}`
       );
       return res.data;
     },

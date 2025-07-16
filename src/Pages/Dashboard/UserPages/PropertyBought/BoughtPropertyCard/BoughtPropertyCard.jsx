@@ -11,12 +11,15 @@ const BoughtPropertyCard = ({ offer }) => {
     offerAmount,
     status,
     transactionId,
+    propertyId,
     _id,
   } = offer;
 
   const handlePay = () => {
+
     navigate(`/dashboard/payment/${_id}`);
   };
+
 
   return (
     <div className="bg-white dark:bg-base-300 p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">

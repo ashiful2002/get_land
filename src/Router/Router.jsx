@@ -20,6 +20,8 @@ import ManageProperties from "../Pages/Dashboard/AdminPages/ManageProperties/Man
 import Profile from "../Pages/Dashboard/Shared/Profile/Profile";
 import Statastics from "../Pages/Dashboard/DashboardStats/Statastics";
 import ManageUsers from "../Pages/Dashboard/AdminPages/ManageUsers/ManageUsers";
+import RequestedProperties from "../Pages/Dashboard/AgentPages/RequestedProperties/RequestedProperties";
+import Payment from "../Pages/Dashboard/UserPages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -137,7 +139,23 @@ const router = createBrowserRouter([
         path: "requested-properties",
         element: (
           <PrivateRoute>
-            <MyAddedProperties />
+            <RequestedProperties />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "sold-properties",
+        element: (
+          <PrivateRoute>
+            <RequestedProperties />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment />
           </PrivateRoute>
         ),
       },
