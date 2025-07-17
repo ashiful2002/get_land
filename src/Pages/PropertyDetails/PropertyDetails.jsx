@@ -39,7 +39,11 @@ const PropertyDetails = () => {
   const handleAddToWishlist = async () => {
     // Check if property data and user email are available
     if (userFromDb.role === "agent") {
-      Swal.fire("Sorry", "Agent cannot buy property", "warning");
+      Swal.fire("Sorry", "Agent can not buy property", "warning");
+      return;
+    }
+    if (userFromDb.role === "admin") {
+      Swal.fire("Sorry", "Admin can not buy property", "warning");
       return;
     }
     if (
