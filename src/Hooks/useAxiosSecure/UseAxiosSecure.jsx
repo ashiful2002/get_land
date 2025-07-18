@@ -1,47 +1,46 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import useAuth from "../useAuth";
+import { getIdToken } from "firebase/auth";
+import { auth } from "../../Firebase/Firebase.init";
+
 const axiosSecure = axios.create({
   baseURL: `http://localhost:3000`,
   withCredentials: true,
 });
+
 const useAxiosSecure = () => {
   const navigate = useNavigate();
-  const { user, logOut } = useAuth();
 
   useEffect(() => {
-    // req interceptor
+    // Request interceptor to attach token
     axiosSecure.interceptors.request.use(
-      (config) => {
-        config.headers.authorization = `Bearer ${user?.accessToken}`;
+      async (config) => {
+        const token = await getIdToken(auth.currentUser);
+        if (token) {
+          config.headers.authorization = `Bearer ${token}`;
+        }
         return config;
       },
-      (error) => {
-        return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
     );
-    // response intercepter
+
+    // Response interceptor
     axiosSecure.interceptors.response.use(
-      (res) => {
-        return res;
-      },
+      (res) => res,
       (error) => {
-        const ststus = error.response?.status;
-        console.log("inside res interceptor", ststus);
-        if (ststus === 403) {
+        const status = error.response?.status;
+        if (status === 403) {
           navigate("/forbidden");
-        } else if (ststus === 401) {
-          logOut()
-            .then(() => {
-              navigate("/login");
-            })
-            .catch(() => {});
+        } else if (status === 401) {
+          auth.signOut().then(() => {
+            navigate("/login");
+          });
         }
         return Promise.reject(error);
       }
     );
-  }, []);
+  }, [navigate]);
 
   return axiosSecure;
 };

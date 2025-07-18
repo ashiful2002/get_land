@@ -2,8 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import { FaHandshake, FaTrashAlt } from "react-icons/fa";
-
+import {
+  FaHandshake,
+  FaLocationArrow,
+  FaTrashAlt,
+  FaUserCircle,
+} from "react-icons/fa";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import Loading from "../../../../Components/Loading/Loading";
@@ -57,6 +61,7 @@ const Wishlist = () => {
     return (
       <p className="text-center text-red-500 mt-10">Failed to load wishlist.</p>
     );
+  console.log(wishlist);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -73,43 +78,74 @@ const Wishlist = () => {
           {wishlist.map((item) => (
             <div
               key={item._id}
-              className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300"
+              className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 flex flex-col"
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-full h-52 object-cover rounded"
+                className="w-full h-52 object-cover rounded-md"
               />
-              <div className="mt-4 space-y-2">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-                  {item.title}
-                </h2>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  📍 {item.location}
-                </p>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  🧑‍💼 Agent: {item.agent_name}
-                </p>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  🔖 Price Range : {item.minPrice} - {item.maxPrice}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  ✅ Verified: {item.status === "verified" ? "Yes" : "No"}
-                </p>
+              <div className="mt-4 flex flex-col justify-between flex-grow space-y-3">
+                <div className="space-y-4">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {item.title}
+                  </h2>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    <strong>Location: </strong> {item.location}
+                  </p>
 
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    <strong>Price Range:</strong> ${item.minPrice} - $
+                    {item.maxPrice}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <strong>Verified:</strong>{" "}
+                    <span
+                      className={
+                        item.status === "verified"
+                          ? "text-green-600 font-semibold"
+                          : "text-red-500"
+                      }
+                    >
+                      {item.status === "verified" ? "Yes" : "No"}
+                    </span>
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-gray-300 dark:border-gray-600 my-2"></div>
+
+                {/* Agent Info */}
+                <div className="flex items-center gap-3">
+                  <div className="text-sm text-gray-700 dark:text-gray-300 capitalize">
+                    <strong>Agent:</strong> {item.agent_name}
+                  </div>
+                  {item.userImage ? (
+                    <img
+                      src={item.userImage}
+                      className="w-10 h-10 object-cover rounded-full shrink-0"
+                      alt={item.agent_name}
+                    />
+                  ) : (
+                    <FaUserCircle className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+                  )}
+                </div>
+
+                {/* Action Buttons */}
                 <div className="flex flex-wrap gap-2 mt-4">
                   <button
                     onClick={() => handleMakeOffer(item._id)}
-                    className="btn btn-sm btn-primary flex items-center gap-2"
+                    className="btn btn-sm btn-primary flex items-center gap-2 hover:scale-105 transition"
                   >
-                    <FaHandshake /> Make Offer
+                    <FaHandshake className="text-white" />
+                    Make Offer
                   </button>
-
                   <button
                     onClick={() => handleRemove(item._id)}
-                    className="btn btn-sm btn-error flex items-center gap-2"
+                    className="btn btn-sm btn-error text-white flex items-center gap-2 hover:scale-105 transition"
                   >
-                    <FaTrashAlt /> Remove
+                    <FaTrashAlt />
+                    Remove
                   </button>
                 </div>
               </div>

@@ -23,6 +23,8 @@ const PropertyBought = () => {
       return res.data;
     },
   });
+
+  
   if (isLoading) {
     return <Loading />;
   }

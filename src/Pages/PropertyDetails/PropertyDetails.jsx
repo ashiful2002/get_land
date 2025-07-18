@@ -35,7 +35,16 @@ const PropertyDetails = () => {
     },
   });
   console.log(userFromDb?.role);
-
+  useEffect(() => {
+    if (property) {
+      axiosSecure
+        .patch(`/properties/${id}`, {
+          propertyId: id,
+        })
+        .then(() => console.log("property data updated"))
+        .catch((err) => console.log(err));
+    }
+  }, [property, id]);
   const handleAddToWishlist = async () => {
     // Check if property data and user email are available
     if (userFromDb.role === "agent") {

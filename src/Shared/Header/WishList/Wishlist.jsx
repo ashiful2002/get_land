@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { Link } from "react-router";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import Loading from "../../../Components/Loading/Loading";
@@ -8,7 +8,7 @@ import Loading from "../../../Components/Loading/Loading";
 const Wishlist = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-
+  
   const {
     data: wishData = [],
     isLoading,
@@ -21,6 +21,8 @@ const Wishlist = () => {
       return res.data;
     },
   });
+
+
 
   if (isLoading) return <Loading />;
   if (isError) return <p>Error loading wishlist.</p>;

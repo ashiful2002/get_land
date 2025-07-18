@@ -1,7 +1,10 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 
 const BoughtPropertyCard = ({ offer }) => {
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const {
     image,
@@ -16,10 +19,21 @@ const BoughtPropertyCard = ({ offer }) => {
   } = offer;
 
   const handlePay = () => {
-
     navigate(`/dashboard/payment/${_id}`);
   };
+  console.log("form bought property card", offer);
 
+  const { data: boughtProperty } = useQuery({
+    queryKey: ["property_paid"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/payment-history?propertyId=${propertyId}`
+      );
+
+      return res.data;
+    },
+  });
+  console.log("mukto", boughtProperty);
 
   return (
     <div className="bg-white dark:bg-base-300 p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
@@ -36,10 +50,10 @@ const BoughtPropertyCard = ({ offer }) => {
           📍 {location}
         </p>
         <p className="text-sm text-gray-600 dark:text-gray-300">
-          🧑‍💼 Agent: {agent_name}
+          <strong>Agent: </strong> {agent_name}
         </p>
         <p className="text-sm text-gray-700 dark:text-gray-200">
-          💰 Offer: ${offerAmount}
+          <strong>Amount:</strong> $ {offerAmount}
         </p>
         <p className="text-sm font-semibold text-blue-600 dark:text-blue-400 capitalize">
           Status: {status}
@@ -53,7 +67,7 @@ const BoughtPropertyCard = ({ offer }) => {
             Pay Now
           </button>
         )}
-
+        {console.log(status)}
         {status === "bought" && transactionId && (
           <p className="text-green-600 mt-2 text-sm">
             🧾 Transaction ID:{" "}

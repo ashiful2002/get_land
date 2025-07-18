@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "../../../../Components/Shared/Forms/PaymentForm/PaymentForm";
+import Section from "../../../../Components/Section/Section";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -18,18 +19,24 @@ const Payment = () => {
       return res.data;
     },
   });
+console.log(offerInfo);
 
   if (isLoading) return <p>Loading...</p>;
-  console.log(offerInfo);
 
   // ============ stripe starts ======  ======
 
   return (
     <div>
       <Elements stripe={stripePromise}>
-        <h1>Pay for {offerInfo.title}</h1>
-        <p>Offer amount: ${offerInfo.offerAmount}</p>
-        <PaymentForm offerInfo={offerInfo} />
+        <Section>
+          <h2 className="text-xl text-center">
+            Pay for:
+            <span className="text-primary font-semibold">
+              {offerInfo.title}
+            </span>
+          </h2>
+          <PaymentForm offerInfo={offerInfo} />
+        </Section>
       </Elements>
     </div>
   );

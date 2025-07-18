@@ -56,7 +56,7 @@ const Profile = () => {
             {userProfile.role}
           </span>
         </div>
-        <div className=" flex  items-center justify-between space-x-3.5">
+        <div className="flex flex-wrap gap-3 items-center justify-center space-x-3.5">
           <button
             onClick={() => setUpdateModal(true)}
             className="btn btn-primary flex items-center gap-2"

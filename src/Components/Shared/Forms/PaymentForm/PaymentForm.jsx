@@ -1,20 +1,24 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import useAuth from "../../../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const PaymentForm = ({ offerInfo }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
   const axiosSecure = useAxiosSecure();
+
   const amount = offerInfo.offerAmount;
   const amountInCents = amount * 100;
   const propertyId = offerInfo.propertyId;
   const [processing, setProcessing] = useState(false);
   const { user } = useAuth();
   console.log(amountInCents, propertyId);
+
+
 
   const handleCardSubmit = async (e) => {
     e.preventDefault();
@@ -60,10 +64,28 @@ const PaymentForm = ({ offerInfo }) => {
       });
 
       await axiosSecure.put(`/payment/${offerInfo.propertyId}/paid`, {
-        ...offerInfo,
-        transactionId: result.paymentIntent.id,
+        transaction_Id: result.paymentIntent.id,
         paidAt: new Date().toISOString(),
+        propertyId: offerInfo.propertyId,
+        title: offerInfo.title,
+        agent_name: offerInfo.agent_name,
+        buyerEmail: user.email,
+        buyerName: user.displayName,
+        offerAmount: offerInfo.offerAmount,
       });
+
+      const patchRes = await axiosSecure.patch(
+        `/make-offer/${offerInfo.propertyId}`,
+        {
+          status: "bought",
+        }
+      );
+
+      if (patchRes.data.success) {
+        toast.success("Status updated to bought");
+      } else {
+        toast.error("Failed to update offer status");
+      }
 
       if (result.error) {
         console.log(result.error.message);

@@ -11,7 +11,7 @@ const ReviewCard = ({ review }) => {
           <img
             src={reviewerImage}
             alt={reviewerName}
-            className="w-32  rounded-full mx-auto"
+            className="w-32 object-cover rounded-full mx-auto"
           />
         </div>
         <h3 className="font-semibold ">-{reviewerName}</h3>

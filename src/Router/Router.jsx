@@ -31,7 +31,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: () => fetch("http://localhost:3000/properties"),
       },
       {
         path: "all-properties",
@@ -40,7 +39,6 @@ const router = createBrowserRouter([
             <AllProperties />
           </PrivateRoute>
         ),
-        // loader: () => fetch("http://localhost:3000/"),
       },
 
       {
