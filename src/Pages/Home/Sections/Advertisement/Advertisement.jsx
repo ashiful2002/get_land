@@ -11,20 +11,27 @@ const Advertisement = () => {
   const { data: properties = [], isLoading: propertyLoading } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const res = await axiosSecure.get("properties");
+      const res = await axiosSecure.get("/advertised-properties");
       return res.data;
     },
   });
+  console.log(properties);
 
   if (propertyLoading) {
     return <Loading />;
   }
   return (
-    <Section title="Featured Properties">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {properties.map((property) => (
-          <AdvertisementCard key={property._id} property={property} />
-        ))}
+    <Section className="" title="Advertised Properties">
+      <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto max-w-fit">
+          {properties.length > 0 ? (
+            properties.map((property) => (
+              <AdvertisementCard key={property._id} property={property} />
+            ))
+          ) : (
+            <p>No advertised property yet</p>
+          )}
+        </div>
       </div>
     </Section>
   );

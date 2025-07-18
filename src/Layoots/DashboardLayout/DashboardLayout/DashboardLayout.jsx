@@ -13,6 +13,7 @@ import {
   FaComments,
   FaUsersCog,
   FaTasks,
+  FaBullhorn,
 } from "react-icons/fa"; // icons
 import useUserRole from "../../../Hooks/useUserRole/useUserRole";
 import Logo from "../../../Components/Logo/Logo";
@@ -157,7 +158,16 @@ const DashboardLayout = () => {
               to="/dashboard/manage-reviews"
               className="flex items-center gap-2"
             >
-              <FaComments /> Manage Reviews --admin ends
+              <FaComments /> Manage Reviews
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/dashboard/advertise-property"
+              className="flex items-center gap-2"
+            >
+              <FaBullhorn className="" /> Advertise Property
             </NavLink>
           </li>
         </>

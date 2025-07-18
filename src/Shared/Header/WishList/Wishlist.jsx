@@ -8,7 +8,7 @@ import Loading from "../../../Components/Loading/Loading";
 const Wishlist = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  
+
   const {
     data: wishData = [],
     isLoading,
@@ -21,8 +21,6 @@ const Wishlist = () => {
       return res.data;
     },
   });
-
-
 
   if (isLoading) return <Loading />;
   if (isError) return <p>Error loading wishlist.</p>;
@@ -57,6 +55,9 @@ const Wishlist = () => {
         >
           <div className="card-body">
             <span className="text-lg font-bold">{wishData.length} Items</span>
+            <p className="tab">
+              <strong>Name: </strong> {user?.displayName}
+            </p>
             <div className="card-actions">
               <Link
                 to="/dashboard/wishlist"

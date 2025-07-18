@@ -22,10 +22,16 @@ import Statastics from "../Pages/Dashboard/DashboardStats/Statastics";
 import ManageUsers from "../Pages/Dashboard/AdminPages/ManageUsers/ManageUsers";
 import RequestedProperties from "../Pages/Dashboard/AgentPages/RequestedProperties/RequestedProperties";
 import Payment from "../Pages/Dashboard/UserPages/Payment/Payment";
+import SoldProperties from "../Pages/Dashboard/AgentPages/SoldProperties/SoldProperties";
+import AdvertiseProperty from "../Pages/Dashboard/AdminPages/AdvertiseProperty/AdvertiseProperty";
+import NotFound from "../Pages/ErrorPage/Errirpage";
+import AdminRoute from "../ProtectedRoutes/AdminRoute/AdminRoute";
+import AgentRoute from "../ProtectedRoutes/AgentsRoute/AgentRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <NotFound />,
     element: <RootLayouts />,
     children: [
       {
@@ -120,33 +126,33 @@ const router = createBrowserRouter([
       {
         path: "add-property",
         element: (
-          <PrivateRoute>
+          <AgentRoute>
             <AddProperties />
-          </PrivateRoute>
+          </AgentRoute>
         ),
       },
       {
         path: "my-added-properties",
         element: (
-          <PrivateRoute>
+          <AgentRoute>
             <MyAddedProperties />
-          </PrivateRoute>
+          </AgentRoute>
         ),
       },
       {
         path: "requested-properties",
         element: (
-          <PrivateRoute>
+          <AgentRoute>
             <RequestedProperties />
-          </PrivateRoute>
+          </AgentRoute>
         ),
       },
       {
         path: "sold-properties",
         element: (
-          <PrivateRoute>
-            <RequestedProperties />
-          </PrivateRoute>
+          <AgentRoute>
+            <SoldProperties />
+          </AgentRoute>
         ),
       },
       {
@@ -163,25 +169,33 @@ const router = createBrowserRouter([
       {
         path: "manage-reviews",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <ManageReviews />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "manage-users",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <ManageUsers />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "manage-properties",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <ManageProperties />
-          </PrivateRoute>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "advertise-property",
+        element: (
+          <AdminRoute>
+            <AdvertiseProperty />
+          </AdminRoute>
         ),
       },
     ],

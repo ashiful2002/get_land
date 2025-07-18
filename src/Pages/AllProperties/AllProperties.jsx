@@ -1,31 +1,66 @@
-import React, { use } from "react";
-import { useLoaderData } from "react-router";
-import Section from "../../Components/Section/Section";
-import AdvertisementCard from "../Home/Components/AdvertisementCard.jsx/AdvertisementCard";
-import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure/UseAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Components/Loading/Loading";
+import AdvertisementCard from "../Home/Components/AdvertisementCard.jsx/AdvertisementCard";
+import Section from "../../Components/Section/Section";
 
 const AllProperties = () => {
-  // const properties = useLoaderData();
   const axiosSecure = useAxiosSecure();
-  const { data: properties = [], isLoading: propertyLoading } = useQuery({
-    queryKey: ["properties"],
+  const [searchText, setSearchText] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc"); // 'asc' or 'desc'
+  const [sortBy, setSortBy] = useState("minPrice"); // 'minPrice' or 'maxPrice'
+
+  const { data: properties = [], isLoading } = useQuery({
+    queryKey: ["properties", searchText, sortOrder, sortBy],
     queryFn: async () => {
-      const res = await axiosSecure.get("properties");
+      const res = await axiosSecure.get(
+        `/properties?search=${searchText}&sort=${sortOrder}&sortBy=${sortBy}`
+      );
       return res.data;
     },
   });
 
-  if (propertyLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
+
   return (
     <Section title="All Properties">
+      <div className="mb-4 flex gap-4 justify-center items-center">
+        <input
+          type="search"
+          placeholder="Search Property"
+          className="input input-bordered"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="select select-bordered"
+        >
+          <option value="minPrice">Min Price</option>
+          <option value="maxPrice">Max Price</option>
+        </select>
+
+        {/* <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="select select-bordered"
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select> */}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {properties.map((property) => (
-          <AdvertisementCard key={property._id} property={property} />
-        ))}
+        {properties.length === 0 ? (
+          <p className="text-center">No properties found.</p>
+        ) : (
+          properties.map((property) => (
+            <AdvertisementCard key={property._id} property={property} />
+          ))
+        )}
       </div>
     </Section>
   );

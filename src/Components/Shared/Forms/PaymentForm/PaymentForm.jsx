@@ -18,7 +18,17 @@ const PaymentForm = ({ offerInfo }) => {
   const { user } = useAuth();
   console.log(amountInCents, propertyId);
 
+  console.log(offerInfo.propertyId);
 
+  const { data: properties, isLoading } = useQuery({
+    queryKey: ["properties"],
+    enabled: !!user,
+    queryFn: async () => {
+      const res = await axiosSecure.get("/properties");
+      return res.data;
+    },
+  });
+  console.log(properties);
 
   const handleCardSubmit = async (e) => {
     e.preventDefault();
@@ -74,14 +84,17 @@ const PaymentForm = ({ offerInfo }) => {
         offerAmount: offerInfo.offerAmount,
       });
 
+      // await axiosSecure.patch("/properties")
       const patchRes = await axiosSecure.patch(
         `/make-offer/${offerInfo.propertyId}`,
         {
           status: "bought",
+          transaction_Id: result.paymentIntent.id,
         }
       );
+      console.log(patchRes);
 
-      if (patchRes.data.success) {
+      if (patchRes.data.acknowledged) {
         toast.success("Status updated to bought");
       } else {
         toast.error("Failed to update offer status");
@@ -93,6 +106,7 @@ const PaymentForm = ({ offerInfo }) => {
         if (result.paymentIntent.status === "succeeded") {
           console.log("payment succeeded");
           toast.success("payment successfull");
+          
           setProcessing(false);
         }
         console.log("payment result", result);

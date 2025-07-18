@@ -15,8 +15,10 @@ const BoughtPropertyCard = ({ offer }) => {
     status,
     transactionId,
     propertyId,
+    transaction_Id,
     _id,
   } = offer;
+  console.log("new log from : ", transactionId, transaction_Id);
 
   const handlePay = () => {
     navigate(`/dashboard/payment/${_id}`);
@@ -67,11 +69,10 @@ const BoughtPropertyCard = ({ offer }) => {
             Pay Now
           </button>
         )}
-        {console.log(status)}
-        {status === "bought" && transactionId && (
+        {status === "bought" && transaction_Id && (
           <p className="text-green-600 mt-2 text-sm">
             🧾 Transaction ID:{" "}
-            <span className="font-mono">{transactionId}</span>
+            <span className="font-mono">{transaction_Id}</span>
           </p>
         )}
       </div>
