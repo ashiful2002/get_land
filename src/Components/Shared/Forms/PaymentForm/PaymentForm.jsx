@@ -106,8 +106,9 @@ const PaymentForm = ({ offerInfo }) => {
         if (result.paymentIntent.status === "succeeded") {
           console.log("payment succeeded");
           toast.success("payment successfull");
-          
           setProcessing(false);
+          await axiosSecure.delete(`/make-offer/${propertyId}`);
+          await axiosSecure.delete(`/wishlist/${propertyId}`);
         }
         console.log("payment result", result);
       }

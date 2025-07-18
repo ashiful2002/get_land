@@ -5,7 +5,7 @@ import { getIdToken } from "firebase/auth";
 import { auth } from "../../Firebase/Firebase.init";
 
 const axiosSecure = axios.create({
-  baseURL: `http://localhost:3000`,
+  baseURL: `https://real-estate-server-flax.vercel.app`,
   withCredentials: true,
 });
 
