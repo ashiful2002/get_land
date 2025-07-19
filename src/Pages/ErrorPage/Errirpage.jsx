@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "lottie-react";
-import notFoundAnimation from "../../../public/404.json"; // Adjust the path if needed
+import notFoundAnimation from "./404.json"; // Adjust the path if needed
 import { Link, useLocation } from "react-router";
 
 const NotFound = () => {
