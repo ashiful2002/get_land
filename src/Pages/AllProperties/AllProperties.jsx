@@ -39,8 +39,8 @@ const AllProperties = () => {
           onChange={(e) => setSortBy(e.target.value)}
           className="select select-bordered"
         >
-          <option value="minPrice">Min Price</option>
-          <option value="maxPrice">Max Price</option>
+          <option value="minPrice">{`Price (Low > High)`}</option>
+          <option value="maxPrice">{`Price (High > Low)`}</option>
         </select>
 
         {/* <select
