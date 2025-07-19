@@ -27,6 +27,7 @@ import AdvertiseProperty from "../Pages/Dashboard/AdminPages/AdvertiseProperty/A
 import NotFound from "../Pages/ErrorPage/Errirpage";
 import AdminRoute from "../ProtectedRoutes/AdminRoute/AdminRoute";
 import AgentRoute from "../ProtectedRoutes/AgentsRoute/AgentRoute";
+import UpdateProperty from "../Pages/Dashboard/AgentPages/MyAddedProperties/UpdateProperty";
 
 const router = createBrowserRouter([
   {
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
             <MyAddedProperties />
           </AgentRoute>
         ),
+      },{path:"update-property/:id",
+        element:<PrivateRoute>
+          < UpdateProperty/>
+        </PrivateRoute>
       },
       {
         path: "requested-properties",

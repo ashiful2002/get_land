@@ -3,6 +3,7 @@ import Section from "../../../../Components/Section/Section";
 import ReviewCard from "../../Components/ReviewCard/ReviewCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
+import axios from "axios";
 
 const Review = () => {
   const axiosSecure = useAxiosSecure();
@@ -10,7 +11,7 @@ const Review = () => {
   const { data: reviews = [] } = useQuery({
     queryKey: ["latestReview"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/latest-review");
+      const res = await axios.get("https://real-estate-server-flax.vercel.app/latest-review");
       return res.data;
     },
   });

@@ -14,8 +14,7 @@ const Wishlist = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["wishlist", user?.email],
-    enabled: !!user?.email,
+    queryKey: ["wishlist"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/wishlist?email=${user?.email}`);
       return res.data;
@@ -23,7 +22,7 @@ const Wishlist = () => {
   });
 
   if (isLoading) return <Loading />;
-  if (isError) return <p>Error loading wishlist.</p>;
+  // if (isError) return <p>Error loading wishlist.</p>;
 
   return (
     <div className="flex-none">

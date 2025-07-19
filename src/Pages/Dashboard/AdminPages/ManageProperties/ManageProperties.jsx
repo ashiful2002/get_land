@@ -51,6 +51,7 @@ const ManageProperties = () => {
 
   if (isLoading) return <Loading />;
   if (isError) return <p>Error loading properties.</p>;
+console.log(allProperties);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">

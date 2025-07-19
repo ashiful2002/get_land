@@ -91,25 +91,20 @@ const MyAddedProperties = () => {
                 <strong>Status:</strong>{" "}
                 <span
                   className={`badge ${
-                    property.verification === "verified"
+                    property.status === "verified"
                       ? "badge-success"
                       : property.verification === "rejected"
                       ? "badge-error"
                       : "badge-warning"
                   }`}
                 >
-                  {property.verification || "pending"}
+                  {property.status || "pending"}
                 </span>
               </p>
               <p>
-                <strong>Price Range:</strong> {property.priceRange}
+                <strong>Price Range:</strong> ${property.minPrice} - ${property.maxPrice}
               </p>
-              <p>
-                <strong>Min Price:</strong> ${property.minPrice}
-              </p>
-              <p>
-                <strong>Max Price:</strong> ${property.maxPrice}
-              </p>
+             
 
               <div className="flex gap-3">
                 {property.verification !== "rejected" && (
