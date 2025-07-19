@@ -4,9 +4,9 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import Loading from "../../../Components/Loading/Loading";
 import { Ear } from "lucide-react";
 import { useState } from "react";
+import Rchart from "./Rchart";
 
 const DashboardStats = ({ stats }) => {
-
   const cards = [
     {
       title: "Total Properties",
@@ -34,7 +34,6 @@ const DashboardStats = ({ stats }) => {
     },
   ];
 
- 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
       {cards.map((card, index) => (
@@ -44,11 +43,16 @@ const DashboardStats = ({ stats }) => {
         >
           <div className="p-3 rounded-full bg-white shadow">{card.icon}</div>
           <div>
-            <p className="text-gray-500 text-sm">{card.title}</p>
-            <h2 className="text-2xl font-bold">{card.value}</h2>
+            <p className="text-gray-500 dark:text-gray-600 text-sm">
+              {card.title}
+            </p>
+            <h2 className="text-2xl font-bold dark:text-gray-600">
+              {card.value}
+            </h2>
           </div>
         </div>
       ))}
+      <Rchart stats={stats}/>
     </div>
   );
 };

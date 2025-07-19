@@ -10,9 +10,7 @@ const NavLinks = () => {
       <li>
         <NavLink to="/all-properties">All Properties</NavLink>
       </li>
-      {/* <li>
-        <NavLink to="/add-property">Add Property</NavLink>
-      </li> */}
+
       <li>
         <NavLink to="/dashboard">Dashboard</NavLink>
       </li>
