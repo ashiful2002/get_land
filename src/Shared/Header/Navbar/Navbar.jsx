@@ -37,9 +37,9 @@ const Navbar = () => {
             <NavLinks />
           </ul>
         </div>
-       <div className="">
-         <Logo />
-       </div>
+        <div className="">
+          <Logo />
+        </div>
       </div>
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1">
