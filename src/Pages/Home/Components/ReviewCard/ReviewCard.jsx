@@ -9,7 +9,7 @@ const ReviewCard = ({ review }) => {
       <div className="card-body text-center">
         <div className="flex items-center gap-3 mb-4">
           <img
-            src={reviewerImage}
+            src={reviewerImage || "https://i.ibb.co/1JKmxQgt/4.png"}
             alt={reviewerName}
             className="w-32 object-cover rounded-full mx-auto"
           />

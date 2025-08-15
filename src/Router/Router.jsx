@@ -42,9 +42,9 @@ const router = createBrowserRouter([
       {
         path: "all-properties",
         element: (
-          <PrivateRoute>
+          <>
             <AllProperties />
-          </PrivateRoute>
+          </>
         ),
       },
 
@@ -139,10 +139,14 @@ const router = createBrowserRouter([
             <MyAddedProperties />
           </AgentRoute>
         ),
-      },{path:"update-property/:id",
-        element:<PrivateRoute>
-          < UpdateProperty/>
-        </PrivateRoute>
+      },
+      {
+        path: "update-property/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateProperty />
+          </PrivateRoute>
+        ),
       },
       {
         path: "requested-properties",

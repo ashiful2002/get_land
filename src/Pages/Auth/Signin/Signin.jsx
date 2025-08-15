@@ -12,11 +12,27 @@ const LoginForm = () => {
   const { signin } = useAuth();
   const { redirect } = useRedirect();
   const axiosSecure = useAxiosSecure();
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
+
+  // Demo user credentials
+  const demoUsers = {
+    agent: { email: "agent@gmail.com", password: "agent@gmail.com" },
+    admin: { email: "admin@gmail.com", password: "admin@gmail.com" },
+    user: { email: "user@gmail.com", password: "user@gmail.com" },
+  };
+
+  const handleSelectChange = (role) => {
+    if (demoUsers[role]) {
+      setValue("email", demoUsers[role].email);
+      setValue("password", demoUsers[role].password);
+    }
+  };
 
   const onSubmit = (data) => {
     signin(data.email, data.password)
@@ -30,16 +46,11 @@ const LoginForm = () => {
           role: "user",
         };
 
-        // TODO: Send userData to backend
-        const userRes = await axiosSecure.post("/users", userData);
+        await axiosSecure.post("/users", userData);
         redirect();
       })
       .catch((err) => {
-        Swal.fire(
-          "Email and Password does not found",
-          `${err.message}`,
-          `error`
-        );
+        Swal.fire("Email and Password not found", `${err.message}`, `error`);
       });
   };
 
@@ -50,6 +61,22 @@ const LoginForm = () => {
           <h1 className="text-4xl font-semibold text-primary text-center mb-6">
             Login
           </h1>
+
+          {/* Demo user selector */}
+          <div className="mb-4">
+            <select
+              defaultValue=""
+              onChange={(e) => handleSelectChange(e.target.value)}
+              className="select select-sm w-6/12"
+            >
+              <option value="" disabled>
+                Select demo user
+              </option>
+              <option value="agent">Agent</option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+          </div>
 
           {/* Email */}
           <label className="label" htmlFor="email">
@@ -88,6 +115,7 @@ const LoginForm = () => {
               {errors.password.message}
             </p>
           )}
+
           <button type="submit" className="btn btn-primary w-full mt-6">
             Login
           </button>

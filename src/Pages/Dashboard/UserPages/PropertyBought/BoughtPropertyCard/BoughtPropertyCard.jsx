@@ -18,12 +18,12 @@ const BoughtPropertyCard = ({ offer }) => {
     transaction_Id,
     _id,
   } = offer;
-  console.log("new log from : ", transactionId, transaction_Id);
+  // console.log("new log from : ", transactionId, transaction_Id);
 
   const handlePay = () => {
     navigate(`/dashboard/payment/${_id}`);
   };
-  console.log("form bought property card", offer);
+  // console.log("form bought property card", offer);
 
   const { data: boughtProperty } = useQuery({
     queryKey: ["property_paid"],

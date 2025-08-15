@@ -51,7 +51,7 @@ const ManageProperties = () => {
 
   if (isLoading) return <Loading />;
   if (isError) return <p>Error loading properties.</p>;
-console.log(allProperties);
+// console.log(allProperties);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -78,7 +78,7 @@ console.log(allProperties);
                 <td>{property.agent_email}</td>
                 <td>{property.priceRange}</td>
                 <td>
-                  {console.log(property.status)}
+                  {/* {console.log(property.status)} */}
                   {property.status === "verified" ? (
                     <span className="badge badge-success">Verified</span>
                   ) : property.status === "rejected" ? (

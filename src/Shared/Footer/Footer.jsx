@@ -2,11 +2,12 @@ import React from "react";
 import NavLinks from "../../Components/NavLinks/NavLinks";
 import Logo from "../../Components/Logo/Logo";
 import Social from "./Social/Social";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
     <footer className="bg-base-200 text-base-content rounded p-6 sm:p-10">
-      <div className="max-w- 6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <div className="max-w- 6xl mx-auto flex flex-col sm:flex-row sm:items-enter sm:justify-between gap-6">
         {/* Logo */}
         <div className="order-1 flex justify-center sm:justify-end">
           <Logo />
@@ -19,7 +20,7 @@ const Footer = () => {
         </nav>
 
         {/* Social Icons */}
-        <nav className="order-3 sm:order-2">
+        <nav className="order-4 sm:order-2">
           {/* <div className="flex justify-center gap-6">
             <a
               href="#"

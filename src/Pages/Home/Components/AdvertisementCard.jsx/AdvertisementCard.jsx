@@ -13,7 +13,7 @@ const AdvertisementCard = ({ property }) => {
     maxPrice,
     created_at,
   } = property;
-  console.log(property);
+  // console.log(property);
   const createdAt = new Date(created_at);
   const currentTime = new Date();
 
@@ -36,7 +36,7 @@ const AdvertisementCard = ({ property }) => {
   if (daysAgo > 0 || (!monthsAgo && !weeksAgo))
     timeAgo += `${daysAgo} day${daysAgo > 1 ? "s" : ""} `;
 
-  console.log(timeAgo.trim() + " ago");
+  // console.log(timeAgo.trim() + " ago");
 
   if (status === "verified") {
     return (
@@ -45,7 +45,7 @@ const AdvertisementCard = ({ property }) => {
           <img
             src={image}
             alt="Property"
-            className="h-48 w-full object-cover"
+            className="h-48 w-full object-cover relative"
           />
         </figure>
         <div className="card-body">
@@ -58,8 +58,8 @@ const AdvertisementCard = ({ property }) => {
           </p>
 
           <p
-            className={`text-sm font-medium badge-outline ${
-              status ? "text-green-500" : "text-red-500"
+            className={`badge absolute -mt-52 -ml-4 text-sm font-medium badge-outline ${
+              status ? "text-green-500 bg-gray-100/80" : "text-red-500"
             }`}
           >
             {status ? "Verified" : "Not verified"}
@@ -73,29 +73,28 @@ const AdvertisementCard = ({ property }) => {
             </Link>
           </div>
           <div className="divider"></div>
-         <div className="flex flex-col gap-3 md:flex-col xl:flex-row xl:items-center justify-between">
-  {/* Agent Info */}
-  <div className="flex items-center flex-wrap gap-3">
-    <p className="capitalize">
-      <strong>Agent:</strong> {agent_name}
-    </p>
+          <div className="flex flex-col gap-3 md:flex-col xl:flex-row xl:items-center justify-between">
+            {/* Agent Info */}
+            <div className="flex items-center flex-wrap gap-3">
+              <p className="capitalize">
+                <strong>Agent:</strong> {agent_name}
+              </p>
 
-    <img
-      src={userImage}
-      className="w-10 h-10 object-cover rounded-full shrink-0"
-      alt={agent_name}
-    />
-  </div>
+              <img
+                src={userImage}
+                className="w-10 h-10 object-cover rounded-full shrink-0"
+                alt={agent_name}
+              />
+            </div>
 
-  {/* Time Info */}
-  <div>
-    <p className="text-sm text-gray-600 flex items-center gap-1">
-      <ImAttachment className="text-base" />
-      {timeAgo.trim() + " ago"}
-    </p>
-  </div>
-</div>
-
+            {/* Time Info */}
+            <div>
+              <p className="text-sm text-gray-600 flex items-center gap-1">
+                <ImAttachment className="text-base" />
+                {timeAgo.trim() + " ago"}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );

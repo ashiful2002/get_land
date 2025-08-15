@@ -19,7 +19,7 @@ const Payment = () => {
       return res.data;
     },
   });
-console.log(offerInfo);
+// console.log(offerInfo);
 
   if (isLoading) return <p>Loading...</p>;
 

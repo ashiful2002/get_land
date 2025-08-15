@@ -24,7 +24,7 @@ const Profile = () => {
       return res.data;
     },
   });
-  console.log(userProfile);
+  // console.log(userProfile);
 
   if (isLoading) {
     return <Loading />;

@@ -79,13 +79,28 @@ const AddReview = ({ propertyTitle }) => {
                 <div className="flex items-center mb-3 gap-3">
                   <img
                     className="w-12 rounded-full"
-                    src={review.reviewerImage}
+                    src={
+                      review.reviewerImage || "https://i.ibb.co/1JKmxQgt/4.png"
+                    }
                     alt={review.reviewerName}
                   />
                   <div>
                     <h4 className="font-bold capitalize">
                       {review.reviewerName}
                     </h4>
+                    <div className="rating rating-sm">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <input
+                          key={star}
+                          type="radio"
+                          name={`rating-${review._id}`} // ✅ important for grouping stars
+                          className="mask mask-star-2 bg-primary"
+                          defaultChecked={star === Number(review.rating)} // ✅ ensure number comparison
+                          disabled
+                        />
+                      ))}
+                    </div>
+
                     <p className="text-sm">
                       {new Date(review.date).toLocaleDateString("en-UK", {
                         day: "2-digit",
@@ -109,24 +124,43 @@ const AddReview = ({ propertyTitle }) => {
       {/* Modal for Add Review */}
       {showModal && (
         <div className="fixed inset-0  bg-opacity-40 z-50 flex items-center justify-center">
-          <div className="bg-gray-700 p-6 rounded w-full max-w-md relative">
+          <div className="bg-gray-100 dark:bg-gray-900/40 p-6 rounded w-full max-w-md relative">
             <button
               className="absolute top-2 right-2 btn btn-sm"
               onClick={() => setShowModal(false)}
             >
               ✕
             </button>
-            <h3 className="text-xl font-bold mb-4 text-white">Add a Review</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-600 dark:text-gray-200">
+              Add a Review
+            </h3>
             <form onSubmit={handleSubmit(onSubmitReview)} className="space-y-3">
-              <div className="flex flex-col-reverse gap-4 items-center justify-between">
+              {/* Rating field */}
+              <div className="rating mb-3 flex justify-center">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <input
+                    key={star}
+                    type="radio"
+                    value={star}
+                    {...register("rating", { required: "Rating is required" })}
+                    name="rating"
+                    className="mask mask-star-2 bg-primary"
+                    aria-label={`${star} star`}
+                  />
+                ))}
+              </div>
+              {errors.rating && (
+                <p className="text-sm text-red-500 text-center">
+                  {errors.rating.message}
+                </p>
+              )}
+              <div className="flex flex-col-reverse gap-4 justify-between">
                 <input
                   type="text"
                   value={user.displayName}
                   placeholder="Your Name"
                   className="input input-bordered bg-gray-200 dark:bg-gray-700"
-                  {...register("reviewerName", {
-                    required: "Name is required",
-                  })}
+                  {...register("reviewerName", {})}
                 />
                 {errors.reviewerName && (
                   <p className="text-sm text-red-500">

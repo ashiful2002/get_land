@@ -34,7 +34,7 @@ const PropertyDetails = () => {
       return res.data;
     },
   });
-  console.log(userFromDb?.role);
+  // console.log(userFromDb?.role);
   useEffect(() => {
     if (property) {
       axiosSecure

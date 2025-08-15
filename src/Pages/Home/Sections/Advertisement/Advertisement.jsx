@@ -18,7 +18,7 @@ const Advertisement = () => {
       return res.data;
     },
   });
-  console.log(properties);
+  // console.log(properties);
 
   if (propertyLoading) {
     return <Loading />;

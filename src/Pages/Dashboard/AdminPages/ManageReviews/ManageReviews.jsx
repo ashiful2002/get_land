@@ -49,6 +49,7 @@ const ManageReviews = () => {
       }
     });
   };
+// console.log(reviews);
 
   if (reviewLoading) {
     return <Loading />;
@@ -74,6 +75,18 @@ const ManageReviews = () => {
                   />
                   <div>
                     <h4 className="font-semibold">{review.reviewerName}</h4>
+                    <div className="rating rating-sm">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <input
+                          key={star}
+                          type="radio"
+                          name={`rating-${review._id}`} // ✅ important for grouping stars
+                          className="mask mask-star-2 bg-primary"
+                          defaultChecked={star === Number(review.rating)} // ✅ ensure number comparison
+                          disabled
+                        />
+                      ))}
+                    </div>{" "}
                     <p className="text-sm text-gray-600">
                       {review.reviewer_email}
                     </p>

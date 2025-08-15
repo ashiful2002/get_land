@@ -9,7 +9,7 @@ import Section from "../../../../Components/Section/Section";
 
 const PropertyBought = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -28,7 +28,7 @@ const PropertyBought = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log(offers);
+  // console.log(offers);
 
   return (
     <Section title="My offered Properties">

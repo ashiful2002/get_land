@@ -13,7 +13,7 @@ const GoogleSignin = () => {
     GoogleSignin()
       .then(async (res) => {
         const user = res.user;
-        console.log(user);
+        // console.log(user);
 
         const userData = {
           name: user.displayName,
@@ -26,9 +26,9 @@ const GoogleSignin = () => {
 
         // TODO: Send userData to backend
         const userRes = await axiosSecure.post("/users", userData);
-        console.log(userRes);
+        // console.log(userRes);
         redirect();
-        console.log(res.user);
+        // console.log(res.user);
       })
       .catch((err) => {
         console.log(err);

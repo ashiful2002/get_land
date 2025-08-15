@@ -28,7 +28,7 @@ const SoldProperties = () => {
     0
   );
 
-  console.log(agentSales);
+  // console.log(agentSales);
 
   return (
     <Section title="My Sold Properties">

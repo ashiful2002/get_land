@@ -9,6 +9,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import Loading from "../../../../Components/Loading/Loading";
 import useAuth from "../../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import Section from "../../../../Components/Section/Section";
 
 const MyReviews = () => {
   const axiosSecure = useAxiosSecure();
@@ -53,11 +54,18 @@ const MyReviews = () => {
   if (reviewsLoading) {
     return <Loading />;
   }
-console.log(myReviews);
-
+  // console.log(myReviews);
+  if (myReviews.length === 0) {
+    return (
+      <Section title="My Reviews">
+        <p className="text-center text-gray-500">
+          You haven't write any review yet.
+        </p>
+      </Section>
+    );
+  }
   return (
     <div>
-      {" "}
       <div className="max-w-5xl mx-auto px-4 py-8">
         <h2 className="text-3xl font-bold mb-6">My Reviews</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

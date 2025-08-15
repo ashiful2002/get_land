@@ -16,9 +16,9 @@ const PaymentForm = ({ offerInfo }) => {
   const propertyId = offerInfo.propertyId;
   const [processing, setProcessing] = useState(false);
   const { user } = useAuth();
-  console.log(amountInCents, propertyId);
+  // console.log(amountInCents, propertyId);
 
-  console.log(offerInfo.propertyId);
+  // console.log(offerInfo.propertyId);
 
   const { data: properties, isLoading } = useQuery({
     queryKey: ["properties"],
@@ -28,7 +28,7 @@ const PaymentForm = ({ offerInfo }) => {
       return res.data;
     },
   });
-  console.log(properties);
+  // console.log(properties);
 
   const handleCardSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ const PaymentForm = ({ offerInfo }) => {
       setError(error.message);
     } else {
       setError("");
-      console.log("[PaymentMethod]", paymentMethod);
+      // console.log("[PaymentMethod]", paymentMethod);
       // step 2, payment intent
       const res = await axiosSecure.post("/create-payment-intent", {
         amountInCents,
@@ -92,7 +92,7 @@ const PaymentForm = ({ offerInfo }) => {
           transaction_Id: result.paymentIntent.id,
         }
       );
-      console.log(patchRes);
+      // console.log(patchRes);
 
       if (patchRes.data.acknowledged) {
         toast.success("Status updated to bought");
@@ -110,7 +110,7 @@ const PaymentForm = ({ offerInfo }) => {
           await axiosSecure.delete(`/make-offer/${propertyId}`);
           await axiosSecure.delete(`/wishlist/${propertyId}`);
         }
-        console.log("payment result", result);
+        // console.log("payment result", result);
       }
     }
   };

@@ -28,7 +28,7 @@ const Wishlist = () => {
     queryKey: ["wishlist", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/wishlist?email=${user?.email}`);
-      console.log(res.data);
+      // console.log(res.data);
 
       return res.data;
     },
@@ -43,7 +43,7 @@ const Wishlist = () => {
   const handleRemove = async (id) => {
     try {
       const res = await axiosSecure.delete(`/wishlist/${id}`);
-      console.log(res.data);
+      // console.log(res.data);
 
       if (res.data.deletedCount) {
         Swal.fire("Deleted!", "Property removed from wishlist.", "success");
@@ -61,16 +61,16 @@ const Wishlist = () => {
     return (
       <p className="text-center text-red-500 mt-10">Failed to load wishlist.</p>
     );
-  console.log(wishlist);
+  // console.log(wishlist);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+      <h1 className="text-3xl font-bold text-center mb-8 text-primary">
         My Wishlist
       </h1>
 
       {wishlist.length === 0 ? (
-        <p className="text-gray-600 dark:text-gray-300 text-center">
+        <p className="text-center text-gray-500">
           No properties in wishlist.
         </p>
       ) : (
