@@ -8,6 +8,7 @@ import useAuth from "../../../../Hooks/useAuth";
 import { VscVerified } from "react-icons/vsc"; // classic verified check
 import Social from "../../../../Shared/Footer/Social/Social";
 import AgentSocial from "./AgentSocial";
+import { FaUserTie } from "react-icons/fa"; // Professional/business person
 
 const OurAgents = () => {
   const { user } = useAuth();
@@ -61,14 +62,17 @@ const OurAgents = () => {
                       <VscVerified /> Verified
                     </div>
                   </div>
-                  <p className="text-center">Real Estate Agent</p>
+                  <p className="flex items-baseline gap-2">
+                    <FaUserTie color="#4A90E2" className="text-l" />
+                    Real Estate Agent
+                  </p>
                   {/* <div className="badge badge-soft badge-secondary">
                     <VscVerified /> Verified
                   </div> */}
                   <p className="text-lg">
                     <TimeAgo lastLogin={agent.last_log_in} />
                   </p>
-                  <AgentSocial className="gap-6" />
+                  <AgentSocial className="gap-" />
                 </div>
               </div>
             ))

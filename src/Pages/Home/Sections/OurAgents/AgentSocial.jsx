@@ -1,4 +1,4 @@
-// components/ContactIcons.jsx
+// components/AgentSocial.jsx
 import React from "react";
 import {
   FaFacebookF,
@@ -7,21 +7,50 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-const AgentSocial = ({ size = 24, color = "#333", className = "" }) => {
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    icon: FaLinkedinIn,
+    url: "https://www.linkedin.com/in/ashiful-islam-mukto/",
+    color: "#0077B5", // LinkedIn blue
+  },
+  {
+    name: "Twitter",
+    icon: FaTwitter,
+    url: "https://x.com/Mini_Mukto",
+    color: "#1DA1F2", // Twitter blue
+  },
+  {
+    name: "Facebook",
+    icon: FaFacebookF,
+    url: "https://www.facebook.com/ashifulislam.mukto/",
+    color: "#1877F2", // Facebook blue
+  },
+  {
+    name: "Instagram",
+    icon: FaInstagram,
+    url: "https://www.instagram.com/ashifulislammukto/",
+    color: "#E4405F", // Instagram pink
+  },
+];
+
+const AgentSocial = ({ size = 24, className = "" }) => {
   return (
     <div className={`flex items-center gap-4 ${className}`}>
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-        <FaFacebookF size={size} color={color} />
-      </a>
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <FaInstagram size={size} color={color} />
-      </a>
-      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-        <FaTwitter size={size} color={color} />
-      </a>
-      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-        <FaLinkedinIn size={size} color={color} />
-      </a>
+      {socialLinks.map((social) => {
+        const Icon = social.icon;
+        return (
+          <a
+            key={social.name}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={social.name}
+          >
+            <Icon size={size} color={social.color} />
+          </a>
+        );
+      })}
     </div>
   );
 };
