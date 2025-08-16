@@ -18,10 +18,9 @@
   --color-secondary-content: black;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 .active {
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid var(--color-primary);
 }

@@ -21,7 +21,7 @@ const Wishlist = () => {
     },
   });
 
-  if (isLoading) return <Loading />;
+  // if (isLoading) return <Loading />;
   // if (isError) return <p>Error loading wishlist.</p>;
 
   return (

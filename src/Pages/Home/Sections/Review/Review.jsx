@@ -11,14 +11,14 @@ const Review = () => {
   const { data: reviews = [] } = useQuery({
     queryKey: ["latestReview"],
     queryFn: async () => {
-      const res = await axios.get("https://real-estate-server-flax.vercel.app/latest-review");
+      const res = await axios.get("http://localhost:3000/latest-review");
       return res.data;
     },
   });
 
   return (
     <Section title="Latest Client Reviews">
-      <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-4 w-full rounded-box">
+      <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 w-full rounded-box">
         {reviews.map((review, index) => (
           <div
             key={review._id}

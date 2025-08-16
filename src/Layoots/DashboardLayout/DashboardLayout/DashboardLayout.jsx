@@ -18,6 +18,7 @@ import {
 import useUserRole from "../../../Hooks/useUserRole/useUserRole";
 import Logo from "../../../Components/Logo/Logo";
 import SignOutButton from "../../../Pages/Auth/SignOutButton/SignOutButton";
+import ThemeToggler from "../../../Pages/Dashboard/Shared/ThemeToggler/ThemeToggler";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
@@ -226,6 +227,7 @@ const DashboardLayout = () => {
             {links}{" "}
             <div className="mt-[60vh]">
               <SignOutButton />
+              <ThemeToggler />
             </div>
           </ul>
         </div>

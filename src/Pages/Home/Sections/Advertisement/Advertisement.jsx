@@ -6,15 +6,14 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../../Components/Loading/Loading";
 import axios from "axios";
+import axiosInstance from "../../../../Hooks/useAxios";
 
 const Advertisement = () => {
   const axiosSecure = useAxiosSecure();
   const { data: properties = [], isLoading: propertyLoading } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://real-estate-server-flax.vercel.app/advertised-properties"
-      );
+      const res = await axiosInstance.get("/advertised-properties");
       return res.data;
     },
   });

@@ -12,7 +12,7 @@ const FeaturedCarousel = () => {
   }, []);
 
   return (
-    <div className="w-full  mx-auto px-4">
+    <div className="w-full  mx-auto md:px-4 px-2">
       <Carousel
         autoPlay
         showArrows
@@ -34,7 +34,7 @@ const FeaturedCarousel = () => {
               className="w-full h-full object-cover object-center"
             />
             {item.title && (
-              <div className="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-4 py-2 rounded text-sm sm:text-base md:text-lg">
+              <div className="absolute bottom-4 left-4 bg-black/40 bg-opacity-50 text-white px-4 py-2 rounded text-sm sm:text-base md:text-lg">
                 {item.title}
               </div>
             )}

@@ -70,11 +70,11 @@ const AddReview = ({ propertyTitle }) => {
           </button>
         </div>
         {reviews.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 space-y-4">
             {reviews.map((review) => (
               <div
                 key={review._id}
-                className="p-4 border rounded shadow bg-base-100"
+                className="p-4  shadow-gray-800/40 dark:border-2 dark:border-gray-500/70 rounded shadow bg-base-100"
               >
                 <div className="flex items-center mb-3 gap-3">
                   <img
@@ -93,9 +93,9 @@ const AddReview = ({ propertyTitle }) => {
                         <input
                           key={star}
                           type="radio"
-                          name={`rating-${review._id}`} // ✅ important for grouping stars
+                          name={`rating-${review._id}`}
                           className="mask mask-star-2 bg-primary"
-                          defaultChecked={star === Number(review.rating)} // ✅ ensure number comparison
+                          defaultChecked={star === Number(review.rating)}
                           disabled
                         />
                       ))}
@@ -131,24 +131,10 @@ const AddReview = ({ propertyTitle }) => {
             >
               ✕
             </button>
-            <h3 className="text-xl font-bold mb-4 text-gray-600 dark:text-gray-200">
+            <h3 className="text-2xl text-center font-bold mb-4 text-gray-600 dark:text-gray-200">
               Add a Review
             </h3>
             <form onSubmit={handleSubmit(onSubmitReview)} className="space-y-3">
-              {/* Rating field */}
-              <div className="rating mb-3 flex justify-center">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <input
-                    key={star}
-                    type="radio"
-                    value={star}
-                    {...register("rating", { required: "Rating is required" })}
-                    name="rating"
-                    className="mask mask-star-2 bg-primary"
-                    aria-label={`${star} star`}
-                  />
-                ))}
-              </div>
               {errors.rating && (
                 <p className="text-sm text-red-500 text-center">
                   {errors.rating.message}
@@ -179,7 +165,20 @@ const AddReview = ({ propertyTitle }) => {
                   </p>
                 )}
               </div>
-
+              {/* Rating field */}
+              <div className="rating flex my-5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <input
+                    key={star}
+                    type="radio"
+                    value={star}
+                    {...register("rating", { required: "Rating is required" })}
+                    name="rating"
+                    className="mask mask-star-2 bg-primary"
+                    aria-label={`${star} star`}
+                  />
+                ))}
+              </div>
               <textarea
                 placeholder="Your Review"
                 className="textarea textarea-bordered bg-gray-200 dark:bg-gray-700 w-full"

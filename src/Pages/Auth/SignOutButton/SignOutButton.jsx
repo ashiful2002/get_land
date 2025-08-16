@@ -3,6 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { LogOut } from "lucide-react";
 import Avatar from "../../../Components/Avatar/Avatar";
 import Swal from "sweetalert2";
+import { FaPersonRunning } from "react-icons/fa6";
 
 const SignOutButton = () => {
   const { SignOutUser } = useAuth();
@@ -28,8 +29,8 @@ const SignOutButton = () => {
   };
   return (
     <button onClick={handleSignOut} className="btn btn-primary">
-      Sign Out
-      <LogOut className="w-4 h-4" />
+      <span className="hidden sm:block">Sign Out</span>
+      <FaPersonRunning className="sm:hidden" /> <LogOut className="w-4 h-4" />
     </button>
   );
 };

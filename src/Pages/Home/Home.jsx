@@ -4,15 +4,24 @@ import Advertisement from "./Sections/Advertisement/Advertisement";
 import Featured from "./Sections/Features/Featured";
 import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
 import Achievements from "./Sections/Achievements/Achievements";
+import NewsLetter from "./Sections/NewsLetter/NewsLetter";
+import RecentProducts from "./Sections/RecentProducts/RecentProducts";
 
 const Home = () => {
   return (
     <div>
       <Featured />
+      <div className="px-4 mockup-code w-full">
+        <pre data-prefix="$">
+          <code>this is a fully functional MERN website</code>
+        </pre>
+      </div>
       <Advertisement />
       <Achievements />
+      <RecentProducts />
       <Review />
       <WhyChooseUs />
+      <NewsLetter />
     </div>
   );
 };

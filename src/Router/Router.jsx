@@ -28,6 +28,7 @@ import NotFound from "../Pages/ErrorPage/Errirpage";
 import AdminRoute from "../ProtectedRoutes/AdminRoute/AdminRoute";
 import AgentRoute from "../ProtectedRoutes/AgentsRoute/AgentRoute";
 import UpdateProperty from "../Pages/Dashboard/AgentPages/MyAddedProperties/UpdateProperty";
+import About from "../Pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <AllProperties />
+          </>
+        ),
+      },
+      {
+        path: "about",
+        element: (
+          <>
+            <About />
           </>
         ),
       },

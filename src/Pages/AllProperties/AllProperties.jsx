@@ -5,6 +5,7 @@ import Loading from "../../Components/Loading/Loading";
 import AdvertisementCard from "../Home/Components/AdvertisementCard.jsx/AdvertisementCard";
 import Section from "../../Components/Section/Section";
 import axiosInstance from "../../Hooks/useAxios";
+import PropertyCard from "./PropertyCard/PropertyCard";
 
 const AllProperties = () => {
   // const axiosSecure = useAxiosSecure();
@@ -44,8 +45,6 @@ const AllProperties = () => {
           <option value="minPrice">{`Price (Low > High)`}</option>
           <option value="maxPrice">{`Price (High > Low)`}</option>
         </select>
-
-        
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -53,7 +52,7 @@ const AllProperties = () => {
           <p className="text-center">No properties found.</p>
         ) : (
           properties.map((property) => (
-            <AdvertisementCard key={property._id} property={property} />
+            <PropertyCard key={property._id} property={property} />
           ))
         )}
       </div>
