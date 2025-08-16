@@ -33,7 +33,6 @@ const GoogleSignin = () => {
       .catch((err) => {
         console.log(err);
       });
-
   };
   return (
     <button
@@ -68,7 +67,7 @@ const GoogleSignin = () => {
           />
         </g>
       </svg>
-      Login with Google
+      Continue with Google
     </button>
   );
 };

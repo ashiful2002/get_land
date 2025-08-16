@@ -7,14 +7,14 @@
   default: true;
   --color-primary: #3d7be0;
   --color-primary-content: white;
-  --color-secondary: #f87fff;
+  --color-secondary: #4682A9;
   --color-secondary-content: black;
 }
 @plugin "daisyui/theme" {
   name: "dark";
-  --color-primary: red;
+ --color-primary: #3d7be0;
   --color-primary-content: white;
-  --color-secondary: yellow;
+  --color-secondary: #4682A9;
   --color-secondary-content: black;
 }
 

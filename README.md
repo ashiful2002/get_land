@@ -113,3 +113,13 @@ npm install
    and ask me for env files.
    
 6. npm run dev
+
+
+<!----------
+
+
+http://localhost:3000
+
+http://localhost:3000
+
+>

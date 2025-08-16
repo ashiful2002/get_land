@@ -6,6 +6,7 @@ import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
 import Achievements from "./Sections/Achievements/Achievements";
 import NewsLetter from "./Sections/NewsLetter/NewsLetter";
 import RecentProducts from "./Sections/RecentProducts/RecentProducts";
+import OurAgents from "./Sections/OurAgents/OurAgents";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
         </pre>
       </div>
       <Advertisement />
+      <OurAgents />
       <Achievements />
       <RecentProducts />
       <Review />

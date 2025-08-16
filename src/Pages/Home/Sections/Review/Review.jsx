@@ -17,7 +17,7 @@ const Review = () => {
   });
 
   return (
-    <Section title="Latest Client Reviews">
+    <Section title="What our client's saying">
       <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 w-full rounded-box">
         {reviews.map((review, index) => (
           <div

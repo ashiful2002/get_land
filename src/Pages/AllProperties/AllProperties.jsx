@@ -9,7 +9,7 @@ import PropertyCard from "./PropertyCard/PropertyCard";
 
 const AllProperties = () => {
   // const axiosSecure = useAxiosSecure();
-  const useAxios = axiosInstance();
+  const axiosSecure = useAxiosSecure();
   const [searchText, setSearchText] = useState("");
   const [sortOrder, setSortOrder] = useState("asc"); // 'asc' or 'desc'
   const [sortBy, setSortBy] = useState("minPrice"); // 'minPrice' or 'maxPrice'
@@ -17,7 +17,7 @@ const AllProperties = () => {
   const { data: properties = [], isLoading } = useQuery({
     queryKey: ["properties", searchText, sortOrder, sortBy],
     queryFn: async () => {
-      const res = await axiosInstance.get(
+      const res = await axiosSecure.get(
         `/properties?search=${searchText}&sort=${sortOrder}&sortBy=${sortBy}`
       );
       return res.data;

@@ -16,7 +16,7 @@ const AdvertisementCard = ({ property }) => {
     created_at,
     isAdvertised,
   } = property;
-  console.log(property);
+  // console.log(property);
   const createdAt = new Date(created_at);
   const currentTime = new Date();
 
@@ -44,7 +44,7 @@ const AdvertisementCard = ({ property }) => {
   if (status === "verified") {
     return (
       <div className="">
-          {/* <span class="indicator-item badge badge-primary">New</span> */}
+        {/* <span class="indicator-item badge badge-primary">New</span> */}
 
         <div className="card bg-base-100 dark:bg-base-300 shadow-xl">
           <figure>
