@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
-import { FaUserEdit, FaKey } from "react-icons/fa";
+import {
+  FaUserEdit,
+  FaKey,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+} from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../../Components/Loading/Loading";
@@ -93,7 +99,6 @@ const Profile = () => {
               {userProfile.name}
             </p>
           </div>
-
           <div className="flex items-center ">
             <p className="text-lg">
               {" "}
@@ -101,7 +106,6 @@ const Profile = () => {
               {userProfile.email}
             </p>
           </div>
-
           <div className="flex items-center">
             <p className="text-lg">
               <strong> Account created: </strong>
@@ -115,7 +119,6 @@ const Profile = () => {
               })}
             </p>
           </div>
-
           <div className="flex items-center">
             <p className="text-lg">
               <strong>Last log in: </strong>
@@ -129,6 +132,22 @@ const Profile = () => {
                 hour12: true,
               })}
             </p>
+          </div>
+          {/* socials */}
+          <div className="flex items-center">
+            <span className="text-lg">
+              <span className="flex gap-4 text-3xl">
+                <a target="_blank" href={userProfile.facebookUrl}>
+                  <FaFacebook />
+                </a>
+                <a target="_blank" href={userProfile.instagramUrl}>
+                  <FaInstagram />
+                </a>
+                <a target="_blank" href={userProfile.linkedinUrl}>
+                  <FaLinkedin />
+                </a>
+              </span>
+            </span>
           </div>
         </div>
       </div>

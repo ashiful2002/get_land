@@ -72,7 +72,7 @@ const OurAgents = () => {
                   <p className="text-lg">
                     <TimeAgo lastLogin={agent.last_log_in} />
                   </p>
-                  <AgentSocial className="gap-" />
+                  <AgentSocial agent={agent} className="gap-" />
                 </div>
               </div>
             ))

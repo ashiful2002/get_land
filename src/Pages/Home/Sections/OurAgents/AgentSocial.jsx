@@ -7,50 +7,88 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-const socialLinks = [
-  {
-    name: "LinkedIn",
-    icon: FaLinkedinIn,
-    url: "https://www.linkedin.com/in/ashiful-islam-mukto/",
-    color: "#0077B5", // LinkedIn blue
-  },
-  {
-    name: "Twitter",
-    icon: FaTwitter,
-    url: "https://x.com/Mini_Mukto",
-    color: "#1DA1F2", // Twitter blue
-  },
-  {
-    name: "Facebook",
-    icon: FaFacebookF,
-    url: "https://www.facebook.com/ashifulislam.mukto/",
-    color: "#1877F2", // Facebook blue
-  },
-  {
-    name: "Instagram",
-    icon: FaInstagram,
-    url: "https://www.instagram.com/ashifulislammukto/",
-    color: "#E4405F", // Instagram pink
-  },
-];
-
-const AgentSocial = ({ size = 24, className = "" }) => {
+const AgentSocial = ({ size = 24, className = "", agent }) => {
   return (
     <div className={`flex items-center gap-4 ${className}`}>
-      {socialLinks.map((social) => {
-        const Icon = social.icon;
-        return (
-          <a
-            key={social.name}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={social.name}
-          >
-            <Icon size={size} color={social.color} />
-          </a>
-        );
-      })}
+      {agent.linkedinUrl ? (
+        <a
+          href={agent.linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="LinkedIn"
+        >
+          <FaLinkedinIn size={size} color="#0077B5" />
+        </a>
+      ) : (
+        <a
+          href="https://www.linkedin.com/in/ashiful-islam-mukto/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="LinkedIn"
+        >
+          <FaLinkedinIn size={size} color="#0077B5" />
+        </a>
+      )}
+
+      {agent.twitterUrl ? (
+        <a
+          href={agent.twitterUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Twitter"
+        >
+          <FaTwitter size={size} color="#1DA1F2" />
+        </a>
+      ) : (
+        <a
+          href="https://x.com/Mini_Mukto"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Twitter"
+        >
+          <FaTwitter size={size} color="#1DA1F2" />
+        </a>
+      )}
+
+      {agent.facebookUrl ? (
+        <a
+          href={agent.facebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+        >
+          <FaFacebookF size={size} color="#1877F2" />
+        </a>
+      ) : (
+        <a
+          href="https://www.facebook.com/ashifulislam.mukto"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+        >
+          <FaFacebookF size={size} color="#1877F2" />
+        </a>
+      )}
+
+      {agent.instagramUrl ? (
+        <a
+          href={agent.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+        >
+          <FaInstagram size={size} color="#E4405F" />
+        </a>
+      ) : (
+        <a
+          href="https://www.instagram.com/ashifulislammukto"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+        >
+          <FaInstagram size={size} color="#E4405F" />
+        </a>
+      )}
     </div>
   );
 };
