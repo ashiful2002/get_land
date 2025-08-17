@@ -6,6 +6,18 @@ const About = () => {
       <h1 className="text-3xl font-bold mb-4 text-center">
         About This Platform
       </h1>
+      <p>
+        this is a fully functional MERN stack website for buy and sell
+        properties
+      </p>
+
+      <p>this is a role based web application, </p>
+      <ul>
+        <li>user</li>
+        <li>agent</li>
+        <li>admin</li>
+      </ul>
+
       <p className="text-lg mb-6 text-gray-700 dark:text-gray-300">
         Our Real Estate Platform is designed to make buying, selling, and
         managing properties easier for everyone — whether you’re a{" "}

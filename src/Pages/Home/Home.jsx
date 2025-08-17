@@ -7,6 +7,7 @@ import Achievements from "./Sections/Achievements/Achievements";
 import NewsLetter from "./Sections/NewsLetter/NewsLetter";
 import RecentProducts from "./Sections/RecentProducts/RecentProducts";
 import OurAgents from "./Sections/OurAgents/OurAgents";
+import FAQ from "./Sections/FAQ/FAQ";
 
 const Home = () => {
   return (
