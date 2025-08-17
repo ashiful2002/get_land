@@ -13,11 +13,7 @@ const Home = () => {
   return (
     <div>
       <Featured />
-      <div className="px-4 mockup-code w-full">
-        <pre data-prefix="$">
-          <code>this is a fully functional MERN website</code>
-        </pre>
-      </div>
+
       <Advertisement />
       <OurAgents />
       <Achievements />

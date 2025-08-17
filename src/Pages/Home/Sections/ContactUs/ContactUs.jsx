@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
+import { FaSpinner } from "react-icons/fa";
 
 const ContactUs = () => {
   const form = useRef();
-  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [btnDisabled, setBtnDisabled] = useState(false);
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(form);
     setBtnDisabled(true);
     emailjs
       .sendForm("service_d4iaj4s", "template_rup5e5m", form.current, {
@@ -37,7 +37,7 @@ const ContactUs = () => {
         </h2>
 
         {/* Name */}
-        <div className="flex flex-col gap-1 w-md">
+        <div className="flex flex-col gap-1 md:w-md">
           <label className="text-sm font-medium text-gray-600 dark:text-gray-300">
             Name
           </label>
@@ -87,10 +87,17 @@ const ContactUs = () => {
         <button
           disabled={btnDisabled}
           type="submit"
-          className="w-full bg-primary text-white font-medium py-2 px-4 rounded-lg 
-                 hover:bg-blue-600 transition disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white font-medium py-2 px-4 rounded-lg 
+             hover:bg-blue-600 transition disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          {btnDisabled ? "Sending..." : "Send Message"}
+          {btnDisabled ? (
+            <>
+              <FaSpinner className="animate-spin" />
+              Sending...
+            </>
+          ) : (
+            "Send Message"
+          )}
         </button>
       </form>
     </div>

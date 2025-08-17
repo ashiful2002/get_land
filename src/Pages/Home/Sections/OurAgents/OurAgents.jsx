@@ -37,12 +37,12 @@ const OurAgents = () => {
     const agents = users.filter((user) => user.role === "agent");
     return (
       <Section title="Our Agents">
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 md:gap-20 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {agents.length > 0 ? (
             agents.map((agent) => (
               <div
                 key={agent._id}
-                className="indicator mx-auto w-80 card bg-base-100  shadow-xl dark:border border-gray-500/40 p-2"
+                className="indicator mx-auto w-full 80 card bg-base-100  shadow-xl dark:border border-gray-500/40 p-2"
               >
                 <figure>
                   <img
