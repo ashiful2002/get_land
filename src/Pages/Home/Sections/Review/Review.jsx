@@ -11,7 +11,7 @@ const Review = () => {
   const { data: reviews = [] } = useQuery({
     queryKey: ["latestReview"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/latest-review");
+      const res = await axios.get("https://real-estate-server-flax.vercel.app/latest-review");
       return res.data;
     },
   });

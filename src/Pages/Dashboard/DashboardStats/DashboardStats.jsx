@@ -41,7 +41,9 @@ const DashboardStats = ({ stats }) => {
           key={index}
           className={`rounded-xl p-5 shadow-md flex items-center gap-4 ${card.color}`}
         >
-          <div className="p-3 rounded-full bg-white shadow">{card.icon}</div>
+          <div className="p-3 rounded-full   shadow">
+            {card.icon}
+          </div>
           <div>
             <p className="text-gray-500 dark:text-gray-600 text-sm">
               {card.title}
@@ -52,7 +54,7 @@ const DashboardStats = ({ stats }) => {
           </div>
         </div>
       ))}
-      <Rchart stats={stats}/>
+      <Rchart stats={stats} />
     </div>
   );
 };

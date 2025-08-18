@@ -26,8 +26,7 @@ const FAQ = () => {
     },
     {
       question: "Whats the  role fo a admin?",
-      answer:
-        "haha, an admin can manage all of the users. ",
+      answer: "haha, an admin can manage all of the users. ",
     },
     {
       question: "How do I create an account?",
@@ -73,13 +72,6 @@ const FAQ = () => {
             </div>
           </div>
         ))}
-
-        <h2 className="capitalize mt-5 text-gray-800 dark:text-gray-100">
-          if you have more queries
-          <button className="ml-5 btn btn-xs btn-primary text-center uppercase">
-            <a href="#contact">Contact Us</a>
-          </button>
-        </h2>
       </div>
     </section>
   );

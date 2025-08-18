@@ -32,10 +32,10 @@ const ContactUs = () => {
         ref={form}
         onSubmit={sendEmail}
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">
-          Contact Us
+        <h2 className="heading ">Contact Us</h2>
+        <h2 className=" mt-5 text-gray-800 dark:text-gray-100">
+          If you have more queries drop a message, we will find you.
         </h2>
-
         {/* Name */}
         <div className="flex flex-col gap-1 md:w-md">
           <label className="text-sm font-medium text-gray-600 dark:text-gray-300">
